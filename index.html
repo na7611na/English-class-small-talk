@@ -683,27 +683,29 @@
     <section id="slide-4" class="slide-content hidden flex-col justify-between gap-4 min-h-[80vh]">
 
       <!-- TOP: Question Header -->
-      <div class="bg-violet-50 border-4 border-violet-300 rounded-3xl p-3 sm:p-4 text-center shadow-sm relative">
-        <div class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-violet-600 font-english tracking-wide flex items-center justify-center gap-3 flex-wrap">
-          <span id="dailyQuestionText">What did you do today?</span>
-          <button onclick="speakDailyQuestion()" class="bg-amber-400 hover:bg-amber-300 text-slate-900 p-2.5 rounded-xl text-2xl transition active:scale-90 shadow-md" title="질문 발음 듣기">
-            🔊
-          </button>
+      <div class="bg-violet-50 border-4 border-violet-300 rounded-3xl p-3 sm:p-4 shadow-sm relative">
+        <div class="flex items-center justify-between gap-3 flex-wrap">
+          <div class="flex items-center gap-3 flex-wrap">
+            <span id="dailyQuestionText" class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-violet-600 font-english tracking-wide">What did you do today?</span>
+            <button onclick="speakDailyQuestion()" class="bg-amber-400 hover:bg-amber-300 text-slate-900 p-2.5 rounded-xl text-2xl transition active:scale-90 shadow-md" title="질문 발음 듣기">
+              🔊
+            </button>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button id="tf-today" onclick="setDailyTimeframe('today')" class="timeframe-btn bg-violet-500 text-white px-5 py-2 rounded-full text-lg sm:text-xl font-extrabold font-english shadow">
+              Today <span class="font-korean text-sm">오늘</span>
+            </button>
+            <button id="tf-yesterday" onclick="setDailyTimeframe('yesterday')" class="timeframe-btn bg-white text-slate-500 border-2 border-violet-200 px-5 py-2 rounded-full text-lg sm:text-xl font-extrabold font-english">
+              Yesterday <span class="font-korean text-sm">어제</span>
+            </button>
+          </div>
         </div>
-        <div class="flex items-center justify-center gap-2 mt-3">
-          <button id="tf-today" onclick="setDailyTimeframe('today')" class="timeframe-btn bg-violet-500 text-white px-5 py-1.5 rounded-full text-lg sm:text-xl font-extrabold font-english shadow">
-            Today <span class="font-korean text-sm">오늘</span>
-          </button>
-          <button id="tf-yesterday" onclick="setDailyTimeframe('yesterday')" class="timeframe-btn bg-white text-slate-500 border-2 border-violet-200 px-5 py-1.5 rounded-full text-lg sm:text-xl font-extrabold font-english">
-            Yesterday <span class="font-korean text-sm">어제</span>
-          </button>
-        </div>
-        <div class="text-base sm:text-lg font-korean text-slate-400 mt-2">카드를 여러 개 눌러서 하루를 영어 문장으로 만들어 보세요</div>
+        <div class="text-base sm:text-lg font-korean text-slate-400 mt-2 text-center">카드를 여러 개 눌러서 하루를 영어 문장으로 만들어 보세요</div>
       </div>
 
       <!-- MIDDLE: Daily Activity Categories (rendered via JS) -->
       <div class="bg-slate-50 border-2 border-slate-100 rounded-3xl p-3 sm:p-5 shadow-sm flex flex-col justify-center gap-4 flex-1">
-        <div id="dailyActivityGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 flex-1"></div>
+        <div id="dailyActivityGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 flex-1"></div>
       </div>
 
       <!-- BOTTOM: Answer Template -->
@@ -888,7 +890,7 @@
         ],
       },
       {
-        title: '⚽ 놀이 & 취미 (Play & Hobbies)',
+        title: '🎒 방과 후에 (After School)',
         color: 'orange',
         items: [
           { verb: 'played soccer', ko: '축구를 했어요' },
@@ -909,23 +911,12 @@
           { verb: 'listened to music', ko: '음악을 들었어요' },
         ],
       },
-      {
-        title: '🌙 저녁에 (Evening)',
-        color: 'violet',
-        items: [
-          { verb: 'took a shower', ko: '샤워를 했어요' },
-          { verb: 'ate dinner', ko: '저녁을 먹었어요' },
-          { verb: 'brushed my teeth', ko: '양치를 했어요' },
-          { verb: 'read a book', ko: '책을 읽었어요' },
-          { verb: 'went to bed', ko: '잠을 잤어요' },
-        ],
-      },
     ];
 
     function dailyBtnClass(color, active) {
       return active
-        ? `word-card bg-${color}-500 border-2 border-${color}-600 text-white py-2.5 px-2 rounded-xl text-center shadow-md flex flex-col items-center justify-center`
-        : `word-card bg-white border-2 border-${color}-200 hover:border-${color}-400 text-${color}-700 py-2.5 px-2 rounded-xl text-center shadow-sm flex flex-col items-center justify-center`;
+        ? `word-card bg-${color}-500 border-2 border-${color}-600 text-white py-4 px-2 rounded-xl text-center shadow-md flex flex-col items-center justify-center`
+        : `word-card bg-white border-2 border-${color}-200 hover:border-${color}-400 text-${color}-700 py-4 px-2 rounded-xl text-center shadow-sm flex flex-col items-center justify-center`;
     }
 
     function renderDailyActivities() {
@@ -935,22 +926,22 @@
 
       DAILY_ACTIVITIES.forEach(category => {
         const card = document.createElement('div');
-        card.className = `bg-${category.color}-50 border-2 border-${category.color}-300 rounded-2xl p-3 flex flex-col justify-between shadow-sm`;
+        card.className = `bg-${category.color}-50 border-2 border-${category.color}-300 rounded-2xl p-3 sm:p-4 flex flex-col justify-between shadow-sm`;
 
         const header = document.createElement('div');
-        header.className = `text-xl sm:text-2xl font-black font-korean text-${category.color}-600 mb-2 pb-2 border-b-2 border-${category.color}-200 text-center`;
+        header.className = `text-2xl sm:text-3xl font-black font-korean text-${category.color}-600 mb-3 pb-2 border-b-2 border-${category.color}-200 text-center`;
         header.innerText = category.title;
         card.appendChild(header);
 
         const list = document.createElement('div');
-        list.className = 'flex flex-col gap-2.5 flex-1 justify-center';
+        list.className = 'flex flex-col gap-3 flex-1 justify-center';
 
         category.items.forEach(item => {
           const btn = document.createElement('button');
           btn.dataset.verb = item.verb;
           btn.dataset.color = category.color;
           btn.className = dailyBtnClass(category.color, false);
-          btn.innerHTML = `<span class="fit-text-wrap text-base sm:text-lg xl:text-xl font-black font-english leading-tight">I ${item.verb}</span><div class="text-xs sm:text-sm font-korean font-bold ${''}">${item.ko}</div>`;
+          btn.innerHTML = `<span class="fit-text-wrap text-xl sm:text-2xl xl:text-3xl font-black font-english leading-tight">I ${item.verb}</span><div class="text-sm sm:text-base font-korean font-bold mt-0.5 ${''}">${item.ko}</div>`;
           btn.onclick = () => toggleDailyAction(btn, item.verb);
           list.appendChild(btn);
         });
@@ -974,7 +965,7 @@
 
       const korean = btn.querySelector('div');
       if (korean) {
-        korean.className = `text-xs sm:text-sm font-korean font-bold ${isNowActive ? 'text-white/90' : 'text-slate-500'}`;
+        korean.className = `text-sm sm:text-base font-korean font-bold mt-0.5 ${isNowActive ? 'text-white/90' : 'text-slate-500'}`;
       }
 
       updateDailyAnswer();
@@ -1036,7 +1027,7 @@
       document.querySelectorAll('#dailyActivityGrid button[data-verb]').forEach(btn => {
         btn.className = dailyBtnClass(btn.dataset.color, false);
         const korean = btn.querySelector('div');
-        if (korean) korean.className = 'text-xs sm:text-sm font-korean font-bold text-slate-500';
+        if (korean) korean.className = 'text-sm sm:text-base font-korean font-bold mt-0.5 text-slate-500';
       });
       updateDailyAnswer();
     }
