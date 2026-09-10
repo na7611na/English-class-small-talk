@@ -879,7 +879,7 @@
 
     const DAILY_ACTIVITIES = [
       {
-        title: '🏫 학교에서 (At School)',
+        title: '🏫 At School',
         color: 'sky',
         items: [
           { verb: 'went to school', ko: '학교에 갔어요' },
@@ -890,7 +890,7 @@
         ],
       },
       {
-        title: '🎒 방과 후에 (After School)',
+        title: '🎒 After School',
         color: 'orange',
         items: [
           { verb: 'played soccer', ko: '축구를 했어요' },
@@ -901,7 +901,7 @@
         ],
       },
       {
-        title: '🏠 집에서 (At Home)',
+        title: '🏠 At Home',
         color: 'emerald',
         items: [
           { verb: 'did my homework', ko: '숙제를 했어요' },
@@ -929,7 +929,7 @@
         card.className = `bg-${category.color}-50 border-2 border-${category.color}-300 rounded-2xl p-3 sm:p-4 flex flex-col justify-between shadow-sm`;
 
         const header = document.createElement('div');
-        header.className = `text-2xl sm:text-3xl font-black font-korean text-${category.color}-600 mb-3 pb-2 border-b-2 border-${category.color}-200 text-center`;
+        header.className = `text-2xl sm:text-3xl font-black font-english text-${category.color}-600 mb-3 pb-2 border-b-2 border-${category.color}-200 text-center`;
         header.innerText = category.title;
         card.appendChild(header);
 
