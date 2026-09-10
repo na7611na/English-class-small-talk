@@ -680,7 +680,7 @@
     <!-- ========================================== -->
     <!-- SLIDE 4: WHAT DID YOU DO? (DAILY LIFE PRACTICE) -->
     <!-- ========================================== -->
-    <section id="slide-4" class="slide-content hidden flex-col justify-between gap-4 min-h-[80vh]">
+    <section id="slide-4" class="slide-content hidden flex-col justify-between gap-4 h-[70vh]">
 
       <!-- TOP: Question Header -->
       <div class="bg-violet-50 border-4 border-violet-300 rounded-3xl p-3 sm:p-4 shadow-sm relative">
@@ -703,9 +703,9 @@
         <div class="text-base sm:text-lg font-korean text-slate-400 mt-2 text-center">카드를 여러 개 눌러서 하루를 영어 문장으로 만들어 보세요</div>
       </div>
 
-      <!-- MIDDLE: Daily Activity Categories (rendered via JS) -->
-      <div class="bg-slate-50 border-2 border-slate-100 rounded-3xl p-3 sm:p-5 shadow-sm flex flex-col justify-center gap-4 flex-1">
-        <div id="dailyActivityGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 flex-1"></div>
+      <!-- MIDDLE: Daily Activity Categories (rendered via JS, scrolls internally so the slide never overflows the screen) -->
+      <div class="bg-slate-50 border-2 border-slate-100 rounded-3xl p-3 sm:p-5 shadow-sm flex-1 min-h-0 overflow-y-auto">
+        <div id="dailyActivityGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5"></div>
       </div>
 
       <!-- BOTTOM: Answer Template -->
@@ -887,6 +887,10 @@
           { verb: 'had lunch', ko: '점심을 먹었어요' },
           { verb: 'played with my friends', ko: '친구들과 놀았어요' },
           { verb: 'had P.E. class', ko: '체육 수업을 했어요' },
+          { verb: 'took a math test', ko: '수학 시험을 봤어요' },
+          { verb: 'read a book in the library', ko: '도서관에서 책을 읽었어요' },
+          { verb: 'did an experiment in science class', ko: '과학 시간에 실험을 했어요' },
+          { verb: 'cleaned the classroom', ko: '교실 청소를 했어요' },
         ],
       },
       {
@@ -894,10 +898,14 @@
         color: 'orange',
         items: [
           { verb: 'played soccer', ko: '축구를 했어요' },
-          { verb: 'watched YouTube and danced', ko: '유튜브를 보며 춤을 췄어요' },
+          { verb: 'played phone games', ko: '휴대폰 게임을 했어요' },
           { verb: 'rode my bike', ko: '자전거를 탔어요' },
           { verb: 'drew a picture', ko: '그림을 그렸어요' },
+          { verb: 'sang a song', ko: '노래를 불렀어요' },
+          { verb: 'watched YouTube and danced', ko: '유튜브를 보며 춤을 췄어요' },
           { verb: 'watched the fish in the fish tank', ko: '어항의 물고기를 관찰했어요' },
+          { verb: 'fed the fish', ko: '물고기에게 먹이를 줬어요' },
+          { verb: 'watered the plants', ko: '식물에게 물을 줬어요' },
         ],
       },
       {
@@ -909,6 +917,10 @@
           { verb: 'helped my mom', ko: '엄마를 도와드렸어요' },
           { verb: 'watched TV', ko: 'TV를 봤어요' },
           { verb: 'listened to music', ko: '음악을 들었어요' },
+          { verb: 'took a nap', ko: '낮잠을 잤어요' },
+          { verb: 'played with my dog', ko: '강아지와 놀았어요' },
+          { verb: 'ate a snack', ko: '간식을 먹었어요' },
+          { verb: 'talked with my family', ko: '가족과 이야기했어요' },
         ],
       },
     ];
