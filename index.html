@@ -246,7 +246,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- SLIDE 2: WEATHER (16 WORDS IN 4 CATEGORIES) -->
+    <!-- SLIDE 2: WEATHER (20 WORDS IN 4 CATEGORIES) -->
     <!-- ========================================== -->
     <section id="slide-2" class="slide-content hidden flex-col justify-between gap-4 min-h-[80vh]">
 
@@ -260,7 +260,7 @@
         </div>
       </div>
 
-      <!-- MIDDLE: Weather Categories (16 Words in 4 Column Cards with Extra Large Fonts for TV) -->
+      <!-- MIDDLE: Weather Categories (20 Words in 4 Column Cards with Extra Large Fonts for TV) -->
       <div class="bg-slate-50 border-2 border-slate-100 rounded-3xl p-3 sm:p-5 shadow-sm flex flex-col justify-center gap-4 flex-1">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 flex-1">
 
@@ -286,6 +286,10 @@
                 <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Hot</span>
                 <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">더운</div>
               </button>
+              <button onclick="selectWeather('Humid', '습한')" class="word-card bg-white border-2 border-amber-200 hover:border-amber-400 text-amber-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Humid</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">습한</div>
+              </button>
             </div>
           </div>
 
@@ -298,6 +302,10 @@
               <button onclick="selectWeather('Cloudy', '구름낀')" class="word-card bg-white border-2 border-sky-200 hover:border-sky-400 text-sky-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
                 <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Cloudy</span>
                 <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">구름낀</div>
+              </button>
+              <button onclick="selectWeather('Overcast', '흐린')" class="word-card bg-white border-2 border-sky-200 hover:border-sky-400 text-sky-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Overcast</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">흐린</div>
               </button>
               <button onclick="selectWeather('Foggy', '안개낀')" class="word-card bg-white border-2 border-sky-200 hover:border-sky-400 text-sky-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
                 <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Foggy</span>
@@ -328,6 +336,10 @@
                 <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Showery</span>
                 <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">소나기내리는</div>
               </button>
+              <button onclick="selectWeather('Thundery', '천둥치는')" class="word-card bg-white border-2 border-blue-200 hover:border-blue-400 text-blue-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Thundery</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">천둥치는</div>
+              </button>
               <button onclick="selectWeather('Stormy', '폭풍우의')" class="word-card bg-white border-2 border-blue-200 hover:border-blue-400 text-blue-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
                 <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Stormy</span>
                 <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">폭풍우의</div>
@@ -345,13 +357,13 @@
               <span>❄️ 4. 눈 & 추위</span>
             </div>
             <div class="flex flex-col gap-2.5 flex-1 justify-center">
-              <button onclick="selectWeather('Snowy', '눈오는')" class="word-card bg-white border-2 border-indigo-200 hover:border-indigo-400 text-indigo-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
-                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Snowy</span>
-                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">눈오는</div>
-              </button>
               <button onclick="selectWeather('Cold', '추운')" class="word-card bg-white border-2 border-indigo-200 hover:border-indigo-400 text-indigo-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
                 <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Cold</span>
                 <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">추운</div>
+              </button>
+              <button onclick="selectWeather('Snowy', '눈오는')" class="word-card bg-white border-2 border-indigo-200 hover:border-indigo-400 text-indigo-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Snowy</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">눈오는</div>
               </button>
               <button onclick="selectWeather('Freezing', '꽁꽁얼어붙는')" class="word-card bg-white border-2 border-indigo-200 hover:border-indigo-400 text-indigo-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
                 <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Freezing</span>
@@ -360,6 +372,10 @@
               <button onclick="selectWeather('Chilly', '쌀쌀한')" class="word-card bg-white border-2 border-indigo-200 hover:border-indigo-400 text-indigo-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
                 <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Chilly</span>
                 <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">쌀쌀한</div>
+              </button>
+              <button onclick="selectWeather('Icy', '얼음이 언')" class="word-card bg-white border-2 border-indigo-200 hover:border-indigo-400 text-indigo-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Icy</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">얼음이 언</div>
               </button>
             </div>
           </div>
@@ -384,7 +400,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- SLIDE 3: INSIDE OUT FEELINGS (7 CHARACTERS) -->
+    <!-- SLIDE 3: INSIDE OUT FEELINGS (6 CHARACTERS) -->
     <!-- ========================================== -->
     <section id="slide-3" class="slide-content hidden flex-col justify-between gap-4 min-h-[80vh]">
 
@@ -401,8 +417,8 @@
       <!-- MIDDLE: Inside Out Emotion Words (7 Characters x 3 Words) -->
       <div class="bg-slate-50 border-2 border-slate-100 rounded-3xl p-3 sm:p-5 shadow-sm flex flex-col justify-center gap-3 flex-1">
 
-        <!-- 21 Words Categorized by 7 Inside Out Characters with Vector Character Avatars -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5">
+        <!-- 30 Words Categorized by 6 Inside Out Characters with Vector Character Avatars -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
 
           <!-- 1. JOY (기쁨이) -->
           <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-2 flex flex-col gap-2 shadow-sm">
@@ -434,6 +450,14 @@
               <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Excited</span>
               <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">신나는</div>
             </button>
+            <button onclick="selectFeeling('glad', 'Joy (기쁨이)')" class="word-card bg-white hover:bg-amber-100 border-2 border-amber-200 text-amber-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-xl sm:text-2xl xl:text-3xl font-black font-english leading-tight">Glad</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">반가운</div>
+            </button>
+            <button onclick="selectFeeling('proud', 'Joy (기쁨이)')" class="word-card bg-white hover:bg-amber-100 border-2 border-amber-200 text-amber-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Proud</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">자랑스러운</div>
+            </button>
           </div>
 
           <!-- 2. SADNESS (슬픔이) -->
@@ -463,6 +487,14 @@
             <button onclick="selectFeeling('lonely', 'Sadness (슬픔이)')" class="word-card bg-white hover:bg-blue-100 border-2 border-blue-200 text-blue-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
               <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Lonely</span>
               <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">외로운</div>
+            </button>
+            <button onclick="selectFeeling('disappointed', 'Sadness (슬픔이)')" class="word-card bg-white hover:bg-blue-100 border-2 border-blue-200 text-blue-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-base sm:text-lg xl:text-xl font-black font-english leading-tight">Disappointed</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">실망한</div>
+            </button>
+            <button onclick="selectFeeling('unhappy', 'Sadness (슬픔이)')" class="word-card bg-white hover:bg-blue-100 border-2 border-blue-200 text-blue-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Unhappy</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">속상한</div>
             </button>
           </div>
 
@@ -499,6 +531,14 @@
               <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Upset</span>
               <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">속상한</div>
             </button>
+            <button onclick="selectFeeling('furious', 'Anger (버럭이)')" class="word-card bg-white hover:bg-red-100 border-2 border-red-200 text-red-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-base sm:text-lg xl:text-xl font-black font-english leading-tight">Furious</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">몹시화난</div>
+            </button>
+            <button onclick="selectFeeling('annoyed', 'Anger (버럭이)')" class="word-card bg-white hover:bg-red-100 border-2 border-red-200 text-red-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Annoyed</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">짜증난</div>
+            </button>
           </div>
 
           <!-- 4. FEAR (소심이) -->
@@ -530,39 +570,17 @@
               <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Afraid</span>
               <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">겁나는</div>
             </button>
-          </div>
-
-          <!-- 5. DISGUST (까칠이) -->
-          <div class="bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-2 flex flex-col gap-2 shadow-sm">
-            <div class="bg-gradient-to-b from-emerald-500 via-emerald-600 to-emerald-700 text-white rounded-xl p-2 text-center shadow-md border border-emerald-300 flex flex-col items-center justify-center relative overflow-hidden">
-              <svg class="w-12 h-12 sm:w-14 sm:h-14 drop-shadow-md" viewBox="0 0 100 100" fill="none">
-                <path d="M 18 55 C 15 25 35 15 50 15 C 65 15 85 25 82 55 C 88 45 78 20 50 20 C 22 20 12 45 18 55 Z" fill="#15803d"/>
-                <ellipse cx="50" cy="56" rx="24" ry="26" fill="#4ade80"/>
-                <path d="M 32 46 Q 40 40 46 48" stroke="#064e3b" stroke-width="3"/>
-                <path d="M 68 46 Q 60 40 54 48" stroke="#064e3b" stroke-width="3"/>
-                <circle cx="39" cy="50" r="4" fill="#064e3b"/>
-                <circle cx="61" cy="50" r="4" fill="#064e3b"/>
-                <path d="M 40 70 Q 48 66 58 68" stroke="#064e3b" stroke-width="3.5" stroke-linecap="round"/>
-                <path d="M 35 80 Q 50 88 65 80 L 68 88 Q 50 96 32 88 Z" fill="#ec4899"/>
-              </svg>
-              <span class="text-xl sm:text-2xl font-black font-korean tracking-wide text-white drop-shadow mt-1">까칠이</span>
-              <span class="text-xs font-extrabold font-english text-emerald-200 uppercase tracking-widest">Disgust</span>
-            </div>
-            <button onclick="selectFeeling('disgusted', 'Disgust (까칠이)')" class="word-card bg-white hover:bg-emerald-100 border-2 border-emerald-200 text-emerald-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
-              <span class="fit-text text-base sm:text-lg xl:text-xl font-black font-english leading-tight">Disgusted</span>
-              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">까칠한</div>
+            <button onclick="selectFeeling('shy', 'Fear (소심이)')" class="word-card bg-white hover:bg-purple-100 border-2 border-purple-200 text-purple-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-xl sm:text-2xl xl:text-3xl font-black font-english leading-tight">Shy</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">부끄러운</div>
             </button>
-            <button onclick="selectFeeling('annoyed', 'Disgust (까칠이)')" class="word-card bg-white hover:bg-emerald-100 border-2 border-emerald-200 text-emerald-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
-              <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Annoyed</span>
-              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">짜증난</div>
-            </button>
-            <button onclick="selectFeeling('yucky', 'Disgust (까칠이)')" class="word-card bg-white hover:bg-emerald-100 border-2 border-emerald-200 text-emerald-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
-              <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Yucky</span>
-              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">불쾌한</div>
+            <button onclick="selectFeeling('timid', 'Fear (소심이)')" class="word-card bg-white hover:bg-purple-100 border-2 border-purple-200 text-purple-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Timid</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">소심한</div>
             </button>
           </div>
 
-          <!-- 6. ANXIETY (불안이) -->
+          <!-- 5. ANXIETY (불안이) -->
           <div class="bg-orange-50 border-2 border-orange-300 rounded-2xl p-2 flex flex-col gap-2 shadow-sm">
             <div class="bg-gradient-to-b from-orange-500 via-orange-600 to-orange-700 text-white rounded-xl p-2 text-center shadow-md border border-orange-300 flex flex-col items-center justify-center relative overflow-hidden">
               <svg class="w-12 h-12 sm:w-14 sm:h-14 drop-shadow-md" viewBox="0 0 100 100" fill="none">
@@ -589,9 +607,17 @@
               <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Uneasy</span>
               <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">마음불편한</div>
             </button>
+            <button onclick="selectFeeling('stressed', 'Anxiety (불안이)')" class="word-card bg-white hover:bg-orange-100 border-2 border-orange-200 text-orange-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Stressed</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">스트레스받는</div>
+            </button>
+            <button onclick="selectFeeling('tense', 'Anxiety (불안이)')" class="word-card bg-white hover:bg-orange-100 border-2 border-orange-200 text-orange-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-xl sm:text-2xl xl:text-3xl font-black font-english leading-tight">Tense</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">긴장한</div>
+            </button>
           </div>
 
-          <!-- 7. ENNUI (따분이) -->
+          <!-- 6. ENNUI (따분이) -->
           <div class="bg-violet-50 border-2 border-violet-300 rounded-2xl p-2 flex flex-col gap-2 shadow-sm">
             <div class="bg-gradient-to-b from-indigo-500 via-indigo-600 to-indigo-700 text-white rounded-xl p-2 text-center shadow-md border border-indigo-300 flex flex-col items-center justify-center relative overflow-hidden">
               <svg class="w-12 h-12 sm:w-14 sm:h-14 drop-shadow-md" viewBox="0 0 100 100" fill="none">
@@ -618,6 +644,14 @@
             <button onclick="selectFeeling('lazy', 'Ennui (따분이)')" class="word-card bg-white hover:bg-violet-100 border-2 border-violet-200 text-violet-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
               <span class="fit-text text-xl sm:text-2xl xl:text-3xl font-black font-english leading-tight">Lazy</span>
               <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">나른한</div>
+            </button>
+            <button onclick="selectFeeling('sleepy', 'Ennui (따분이)')" class="word-card bg-white hover:bg-violet-100 border-2 border-violet-200 text-violet-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-xl sm:text-2xl xl:text-3xl font-black font-english leading-tight">Sleepy</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">졸린</div>
+            </button>
+            <button onclick="selectFeeling('exhausted', 'Ennui (따분이)')" class="word-card bg-white hover:bg-violet-100 border-2 border-violet-200 text-violet-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-base sm:text-lg xl:text-xl font-black font-english leading-tight">Exhausted</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">기진맥진한</div>
             </button>
           </div>
 
@@ -650,13 +684,21 @@
 
       <!-- TOP: Question Header -->
       <div class="bg-violet-50 border-4 border-violet-300 rounded-3xl p-3 sm:p-4 text-center shadow-sm relative">
-        <div class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-violet-600 font-english tracking-wide flex items-center justify-center gap-3">
-          <span>What did you do today?</span>
-          <button onclick="speakText(&quot;What did you do today?&quot;)" class="bg-amber-400 hover:bg-amber-300 text-slate-900 p-2.5 rounded-xl text-2xl transition active:scale-90 shadow-md" title="질문 발음 듣기">
+        <div class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-violet-600 font-english tracking-wide flex items-center justify-center gap-3 flex-wrap">
+          <span id="dailyQuestionText">What did you do today?</span>
+          <button onclick="speakDailyQuestion()" class="bg-amber-400 hover:bg-amber-300 text-slate-900 p-2.5 rounded-xl text-2xl transition active:scale-90 shadow-md" title="질문 발음 듣기">
             🔊
           </button>
         </div>
-        <div class="text-base sm:text-lg font-korean text-slate-400 mt-1">카드를 여러 개 눌러서 오늘 하루를 영어 문장으로 만들어 보세요</div>
+        <div class="flex items-center justify-center gap-2 mt-3">
+          <button id="tf-today" onclick="setDailyTimeframe('today')" class="timeframe-btn bg-violet-500 text-white px-5 py-1.5 rounded-full text-lg sm:text-xl font-extrabold font-english shadow">
+            Today <span class="font-korean text-sm">오늘</span>
+          </button>
+          <button id="tf-yesterday" onclick="setDailyTimeframe('yesterday')" class="timeframe-btn bg-white text-slate-500 border-2 border-violet-200 px-5 py-1.5 rounded-full text-lg sm:text-xl font-extrabold font-english">
+            Yesterday <span class="font-korean text-sm">어제</span>
+          </button>
+        </div>
+        <div class="text-base sm:text-lg font-korean text-slate-400 mt-2">카드를 여러 개 눌러서 하루를 영어 문장으로 만들어 보세요</div>
       </div>
 
       <!-- MIDDLE: Daily Activity Categories (rendered via JS) -->
@@ -831,17 +873,9 @@
     }
 
     // ---------- Slide 4: Daily Activities Data & Rendering ----------
+    let dailyTimeframe = 'today'; // 'today' or 'yesterday'
+
     const DAILY_ACTIVITIES = [
-      {
-        title: '🌅 아침에 (Morning)',
-        color: 'orange',
-        items: [
-          { verb: 'woke up', ko: '일어났어요' },
-          { verb: 'brushed my teeth', ko: '양치를 했어요' },
-          { verb: 'ate breakfast', ko: '아침을 먹었어요' },
-          { verb: 'got dressed', ko: '옷을 입었어요' },
-        ],
-      },
       {
         title: '🏫 학교에서 (At School)',
         color: 'sky',
@@ -850,16 +884,29 @@
           { verb: 'studied math', ko: '수학 공부를 했어요' },
           { verb: 'had lunch', ko: '점심을 먹었어요' },
           { verb: 'played with my friends', ko: '친구들과 놀았어요' },
+          { verb: 'had P.E. class', ko: '체육 수업을 했어요' },
         ],
       },
       {
-        title: '🎒 방과 후에 (After School)',
+        title: '⚽ 놀이 & 취미 (Play & Hobbies)',
+        color: 'orange',
+        items: [
+          { verb: 'played soccer', ko: '축구를 했어요' },
+          { verb: 'played computer games', ko: '컴퓨터 게임을 했어요' },
+          { verb: 'rode my bike', ko: '자전거를 탔어요' },
+          { verb: 'drew a picture', ko: '그림을 그렸어요' },
+          { verb: 'sang a song', ko: '노래를 불렀어요' },
+        ],
+      },
+      {
+        title: '🏠 집에서 (At Home)',
         color: 'emerald',
         items: [
           { verb: 'did my homework', ko: '숙제를 했어요' },
-          { verb: 'rode my bike', ko: '자전거를 탔어요' },
-          { verb: 'played computer games', ko: '컴퓨터 게임을 했어요' },
-          { verb: 'went to the academy', ko: '학원에 갔어요' },
+          { verb: 'cleaned my room', ko: '방을 청소했어요' },
+          { verb: 'helped my mom', ko: '엄마를 도와드렸어요' },
+          { verb: 'watched TV', ko: 'TV를 봤어요' },
+          { verb: 'listened to music', ko: '음악을 들었어요' },
         ],
       },
       {
@@ -868,6 +915,7 @@
         items: [
           { verb: 'took a shower', ko: '샤워를 했어요' },
           { verb: 'ate dinner', ko: '저녁을 먹었어요' },
+          { verb: 'brushed my teeth', ko: '양치를 했어요' },
           { verb: 'read a book', ko: '책을 읽었어요' },
           { verb: 'went to bed', ko: '잠을 잤어요' },
         ],
@@ -939,14 +987,47 @@
       }
     }
 
+    function getDailyQuestionText() {
+      return dailyTimeframe === 'yesterday' ? 'What did you do yesterday?' : 'What did you do today?';
+    }
+
+    function buildDailySentence() {
+      if (selectedDailyVerbs.length === 0) return getDailyQuestionText();
+      const prefix = dailyTimeframe === 'yesterday' ? 'Yesterday, ' : 'Today, ';
+      return `${prefix}I ${selectedDailyVerbs.join(' and ')}.`;
+    }
+
+    function speakDailyQuestion() {
+      speakText(getDailyQuestionText());
+    }
+
+    function setDailyTimeframe(tf) {
+      dailyTimeframe = tf;
+
+      const questionEl = document.getElementById('dailyQuestionText');
+      if (questionEl) questionEl.innerText = getDailyQuestionText();
+
+      const activeClasses = ['bg-violet-500', 'text-white', 'shadow'];
+      const inactiveClasses = ['bg-white', 'text-slate-500', 'border-2', 'border-violet-200'];
+      const todayBtn = document.getElementById('tf-today');
+      const yesterdayBtn = document.getElementById('tf-yesterday');
+      [todayBtn, yesterdayBtn].forEach(btn => {
+        if (!btn) return;
+        btn.classList.remove(...activeClasses, ...inactiveClasses);
+      });
+      const activeBtn = tf === 'yesterday' ? yesterdayBtn : todayBtn;
+      const inactiveBtn = tf === 'yesterday' ? todayBtn : yesterdayBtn;
+      if (activeBtn) activeBtn.classList.add(...activeClasses);
+      if (inactiveBtn) inactiveBtn.classList.add(...inactiveClasses);
+
+      updateDailyAnswer();
+      speakDailyQuestion();
+    }
+
     function updateDailyAnswer() {
       const el = document.getElementById('dailyAnswerText');
       if (!el) return;
-      if (selectedDailyVerbs.length === 0) {
-        el.innerText = 'What did you do today?';
-      } else {
-        el.innerText = `I ${selectedDailyVerbs.join(' and ')}.`;
-      }
+      el.innerText = buildDailySentence();
       fitText(el, true);
     }
 
@@ -1089,11 +1170,7 @@
           speechSentence = "How are you today?";
         }
       } else if (type === 'daily') {
-        if (selectedDailyVerbs.length > 0) {
-          speechSentence = `I ${selectedDailyVerbs.join(' and ')}.`;
-        } else {
-          speechSentence = "What did you do today?";
-        }
+        speechSentence = buildDailySentence();
       }
 
       speakText(speechSentence);
