@@ -16,8 +16,8 @@
   <style>
     body {
       font-family: 'Fredoka', 'Noto Sans KR', sans-serif;
-      background-color: #080d1a;
-      color: #ffffff;
+      background-color: #ffffff;
+      color: #1e293b;
       user-select: none;
       -webkit-font-smoothing: antialiased;
       /* Minimum 20pt size rule for Classroom TV readability */
@@ -32,10 +32,10 @@
       font-family: 'Jua', 'Noto Sans KR', sans-serif;
     }
 
-    /* Highlight Glow for Sentence Banners */
+    /* Highlight Glow for Sentence Banners (color set per-slide via --glow-color) */
     @keyframes highlightGlow {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(250, 204, 21, 0.4); }
-      50% { transform: scale(1.015); box-shadow: 0 0 45px rgba(250, 204, 21, 0.85); }
+      0%, 100% { transform: scale(1); box-shadow: 0 0 18px var(--glow-color, rgba(99,102,241,0.25)); }
+      50% { transform: scale(1.015); box-shadow: 0 0 36px var(--glow-color, rgba(99,102,241,0.55)); }
     }
 
     .animate-glow {
@@ -59,68 +59,73 @@
       line-height: 1;
     }
 
-    /* Custom Scrollbar for large word lists */
+    /* Auto-fit text containers: JS shrinks font-size so words never get cut off */
+    .fit-text {
+      display: block;
+      width: 100%;
+      white-space: nowrap;
+      text-align: center;
+    }
+    .fit-text-wrap {
+      display: block;
+      width: 100%;
+      white-space: normal;
+      text-align: center;
+      word-break: keep-all;
+    }
+
+    /* Custom Scrollbar for large word lists (light theme) */
     ::-webkit-scrollbar {
       width: 10px;
       height: 10px;
     }
     ::-webkit-scrollbar-track {
-      background: #0f172a;
+      background: #f1f5f9;
       border-radius: 8px;
     }
     ::-webkit-scrollbar-thumb {
-      background: #334155;
+      background: #cbd5e1;
       border-radius: 8px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #475569;
+      background: #94a3b8;
     }
-
-    /* Inside Out Color Badges */
-    .bg-joy { background-color: #d97706; border-color: #f59e0b; }
-    .bg-sadness { background-color: #1d4ed8; border-color: #3b82f6; }
-    .bg-anger { background-color: #b91c1c; border-color: #ef4444; }
-    .bg-fear { background-color: #6b21a8; border-color: #a855f7; }
-    .bg-disgust { background-color: #15803d; border-color: #22c55e; }
-    .bg-anxiety { background-color: #c2410c; border-color: #f97316; }
-    .bg-embarrassment { background-color: #be185d; border-color: #ec4899; }
-    .bg-ennui { background-color: #4338ca; border-color: #6366f1; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between bg-slate-950 text-slate-100 overflow-x-hidden">
+<body class="min-h-screen flex flex-col justify-between bg-white text-slate-800 overflow-x-hidden">
 
   <!-- Header Navigation Bar -->
-  <header class="bg-slate-900/95 border-b-4 border-amber-400 px-4 sm:px-8 py-3 flex flex-wrap justify-between items-center gap-4 sticky top-0 z-30 shadow-2xl backdrop-blur-md">
+  <header class="bg-white/95 border-b-4 border-indigo-200 px-4 sm:px-8 py-3 flex flex-wrap justify-between items-center gap-4 sticky top-0 z-30 shadow-sm backdrop-blur-md">
     <div class="flex items-center gap-3">
       <span class="text-3xl sm:text-4xl">🎬</span>
-      <div>
-        <h1 class="text-2xl sm:text-4xl font-extrabold text-amber-300 font-english tracking-wide flex items-center gap-3">
-          English Warm-Up Time!
-          <span class="text-base sm:text-lg bg-amber-400/20 text-amber-300 font-korean px-3 py-1 rounded-full border border-amber-400/40">초등 영어 TV 수업</span>
-        </h1>
-      </div>
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-indigo-600 font-english tracking-wide">
+        English Warm-Up Time!
+      </h1>
     </div>
 
     <!-- Slide Tabs -->
-    <nav class="flex items-center gap-2 sm:gap-3 bg-slate-800/90 p-2 rounded-2xl border-2 border-slate-700">
-      <button onclick="goToSlide(1)" id="tab-slide-1" class="nav-tab bg-indigo-600 text-white px-5 py-2.5 rounded-xl text-xl font-extrabold font-english transition flex items-center gap-2 shadow-lg">
+    <nav class="flex items-center gap-2 sm:gap-3 bg-slate-50 p-2 rounded-2xl border-2 border-slate-100 flex-wrap justify-center">
+      <button onclick="goToSlide(1)" id="tab-slide-1" class="nav-tab bg-indigo-500 text-white px-5 py-2.5 rounded-xl text-xl font-extrabold font-english transition flex items-center gap-2 shadow">
         <span>📅</span> Slide 1: Date
       </button>
-      <button onclick="goToSlide(2)" id="tab-slide-2" class="nav-tab bg-slate-700 text-slate-300 hover:bg-slate-600 px-5 py-2.5 rounded-xl text-xl font-extrabold font-english transition flex items-center gap-2">
+      <button onclick="goToSlide(2)" id="tab-slide-2" class="nav-tab bg-white text-slate-500 hover:bg-sky-50 border-2 border-transparent px-5 py-2.5 rounded-xl text-xl font-extrabold font-english transition flex items-center gap-2">
         <span>☀️</span> Slide 2: Weather
       </button>
-      <button onclick="goToSlide(3)" id="tab-slide-3" class="nav-tab bg-slate-700 text-slate-300 hover:bg-slate-600 px-5 py-2.5 rounded-xl text-xl font-extrabold font-english transition flex items-center gap-2">
+      <button onclick="goToSlide(3)" id="tab-slide-3" class="nav-tab bg-white text-slate-500 hover:bg-emerald-50 border-2 border-transparent px-5 py-2.5 rounded-xl text-xl font-extrabold font-english transition flex items-center gap-2">
         <span>🧠</span> Slide 3: Feelings
+      </button>
+      <button onclick="goToSlide(4)" id="tab-slide-4" class="nav-tab bg-white text-slate-500 hover:bg-violet-50 border-2 border-transparent px-5 py-2.5 rounded-xl text-xl font-extrabold font-english transition flex items-center gap-2">
+        <span>📓</span> Slide 4: My Day
       </button>
     </nav>
 
     <!-- Quick Tools -->
     <div class="flex items-center gap-3">
-      <button id="ttsToggleBtn" onclick="toggleTTS()" class="bg-slate-800 hover:bg-slate-700 text-amber-300 px-4 py-2.5 rounded-xl text-xl font-bold border-2 border-slate-700 transition flex items-center gap-2" title="원어민 발음 설정">
+      <button id="ttsToggleBtn" onclick="toggleTTS()" class="bg-slate-50 hover:bg-slate-100 text-indigo-600 px-4 py-2.5 rounded-xl text-xl font-bold border-2 border-slate-100 transition flex items-center gap-2" title="원어민 발음 설정">
         <span id="ttsIcon">🔊</span>
         <span class="text-base font-korean hidden xl:inline">발음 ON</span>
       </button>
-      <button onclick="toggleFullScreen()" class="bg-indigo-700 hover:bg-indigo-600 text-white px-4 py-2.5 rounded-xl text-xl font-bold transition flex items-center gap-2" title="TV 전체화면">
+      <button onclick="toggleFullScreen()" class="bg-indigo-500 hover:bg-indigo-400 text-white px-4 py-2.5 rounded-xl text-xl font-bold transition flex items-center gap-2" title="TV 전체화면">
         <span>🖥️</span>
         <span class="text-base font-korean hidden xl:inline">전체화면</span>
       </button>
@@ -137,130 +142,80 @@
     <section id="slide-1" class="slide-content flex flex-col justify-between gap-4 min-h-[80vh]">
 
       <!-- TOP: Question Header -->
-      <div class="bg-slate-900/90 border-4 border-indigo-500 rounded-3xl p-3 sm:p-4 text-center shadow-2xl relative">
-        <div class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-amber-300 font-english tracking-wide drop-shadow-lg flex items-center justify-center gap-3">
+      <div class="bg-indigo-50 border-4 border-indigo-300 rounded-3xl p-3 sm:p-4 text-center shadow-sm relative">
+        <div class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-indigo-600 font-english tracking-wide flex items-center justify-center gap-3">
           <span>What's the date today?</span>
-          <button onclick="speakText(&quot;What's the date today?&quot;)" class="bg-amber-400 hover:bg-amber-300 text-slate-950 p-2.5 rounded-xl text-2xl transition active:scale-90 shadow-lg" title="질문 발음 듣기">
+          <button onclick="speakText(&quot;What's the date today?&quot;)" class="bg-amber-400 hover:bg-amber-300 text-slate-900 p-2.5 rounded-xl text-2xl transition active:scale-90 shadow-md" title="질문 발음 듣기">
             🔊
           </button>
         </div>
       </div>
 
       <!-- MIDDLE: Word Categories (1. 요일 -> 2. 달 -> 3. 일 순서) -->
-      <div class="bg-slate-900/80 border-2 border-slate-800 rounded-3xl p-4 sm:p-5 shadow-xl flex flex-col gap-4">
+      <div class="bg-slate-50 border-2 border-slate-100 rounded-3xl p-4 sm:p-5 shadow-sm flex flex-col gap-4">
 
         <!-- SECTION 1: DAYS OF THE WEEK (요일) -->
         <div>
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-2xl font-extrabold font-korean text-amber-300 flex items-center gap-2">
+          <div class="flex items-center justify-between mb-2 flex-wrap gap-1">
+            <span class="text-2xl font-extrabold font-korean text-indigo-600 flex items-center gap-2">
               <span>📌 1. Days of the Week</span>
             </span>
             <span class="text-base font-korean text-slate-400">원하는 요일을 클릭하세요</span>
           </div>
           <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2">
-            <button onclick="selectDay('Monday')" class="day-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-amber-400 text-amber-300 rounded-xl p-1 sm:p-1.5 flex flex-col items-center justify-center cursor-pointer shadow overflow-hidden">
+            <button onclick="selectDay('Monday')" class="day-btn word-card bg-rose-50 border-2 border-rose-200 hover:border-rose-400 text-rose-600 rounded-xl p-1.5 flex flex-col items-center justify-center cursor-pointer shadow-sm">
               <span class="card-emoji mb-0.5">🔴</span>
-              <span class="text-2xl sm:text-3xl xl:text-4xl font-extrabold font-english truncate w-full text-center">Monday</span>
-              <span class="text-xs sm:text-sm font-korean text-slate-300 font-bold">월요일</span>
+              <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-extrabold font-english">Monday</span>
+              <span class="text-xs sm:text-sm font-korean text-slate-500 font-bold">월요일</span>
             </button>
-            <button onclick="selectDay('Tuesday')" class="day-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-amber-400 text-amber-300 rounded-xl p-1 sm:p-1.5 flex flex-col items-center justify-center cursor-pointer shadow overflow-hidden">
+            <button onclick="selectDay('Tuesday')" class="day-btn word-card bg-orange-50 border-2 border-orange-200 hover:border-orange-400 text-orange-600 rounded-xl p-1.5 flex flex-col items-center justify-center cursor-pointer shadow-sm">
               <span class="card-emoji mb-0.5">🟠</span>
-              <span class="text-2xl sm:text-3xl xl:text-4xl font-extrabold font-english truncate w-full text-center">Tuesday</span>
-              <span class="text-xs sm:text-sm font-korean text-slate-300 font-bold">화요일</span>
+              <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-extrabold font-english">Tuesday</span>
+              <span class="text-xs sm:text-sm font-korean text-slate-500 font-bold">화요일</span>
             </button>
-            <button onclick="selectDay('Wednesday')" class="day-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-amber-400 text-amber-300 rounded-xl p-1 sm:p-1.5 flex flex-col items-center justify-center cursor-pointer shadow overflow-hidden">
+            <button onclick="selectDay('Wednesday')" class="day-btn word-card bg-amber-50 border-2 border-amber-200 hover:border-amber-400 text-amber-600 rounded-xl p-1.5 flex flex-col items-center justify-center cursor-pointer shadow-sm">
               <span class="card-emoji mb-0.5">🟡</span>
-              <!-- Wednesday text scaled for visibility -->
-              <span class="text-xl sm:text-2xl xl:text-3xl font-extrabold font-english truncate w-full text-center">Wednesday</span>
-              <span class="text-xs sm:text-sm font-korean text-slate-300 font-bold">수요일</span>
+              <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-extrabold font-english">Wednesday</span>
+              <span class="text-xs sm:text-sm font-korean text-slate-500 font-bold">수요일</span>
             </button>
-            <button onclick="selectDay('Thursday')" class="day-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-amber-400 text-amber-300 rounded-xl p-1 sm:p-1.5 flex flex-col items-center justify-center cursor-pointer shadow overflow-hidden">
+            <button onclick="selectDay('Thursday')" class="day-btn word-card bg-emerald-50 border-2 border-emerald-200 hover:border-emerald-400 text-emerald-600 rounded-xl p-1.5 flex flex-col items-center justify-center cursor-pointer shadow-sm">
               <span class="card-emoji mb-0.5">🟢</span>
-              <span class="text-2xl sm:text-3xl xl:text-4xl font-extrabold font-english truncate w-full text-center">Thursday</span>
-              <span class="text-xs sm:text-sm font-korean text-slate-300 font-bold">목요일</span>
+              <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-extrabold font-english">Thursday</span>
+              <span class="text-xs sm:text-sm font-korean text-slate-500 font-bold">목요일</span>
             </button>
-            <button onclick="selectDay('Friday')" class="day-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-amber-400 text-amber-300 rounded-xl p-1 sm:p-1.5 flex flex-col items-center justify-center cursor-pointer shadow overflow-hidden">
+            <button onclick="selectDay('Friday')" class="day-btn word-card bg-sky-50 border-2 border-sky-200 hover:border-sky-400 text-sky-600 rounded-xl p-1.5 flex flex-col items-center justify-center cursor-pointer shadow-sm">
               <span class="card-emoji mb-0.5">🔵</span>
-              <span class="text-2xl sm:text-3xl xl:text-4xl font-extrabold font-english truncate w-full text-center">Friday</span>
-              <span class="text-xs sm:text-sm font-korean text-slate-300 font-bold">금요일</span>
+              <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-extrabold font-english">Friday</span>
+              <span class="text-xs sm:text-sm font-korean text-slate-500 font-bold">금요일</span>
             </button>
-            <button onclick="selectDay('Saturday')" class="day-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-amber-400 text-amber-300 rounded-xl p-1 sm:p-1.5 flex flex-col items-center justify-center cursor-pointer shadow overflow-hidden">
+            <button onclick="selectDay('Saturday')" class="day-btn word-card bg-violet-50 border-2 border-violet-200 hover:border-violet-400 text-violet-600 rounded-xl p-1.5 flex flex-col items-center justify-center cursor-pointer shadow-sm">
               <span class="card-emoji mb-0.5">🟣</span>
-              <span class="text-2xl sm:text-3xl xl:text-4xl font-extrabold font-english truncate w-full text-center">Saturday</span>
-              <span class="text-xs sm:text-sm font-korean text-slate-300 font-bold">토요일</span>
+              <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-extrabold font-english">Saturday</span>
+              <span class="text-xs sm:text-sm font-korean text-slate-500 font-bold">토요일</span>
             </button>
-            <button onclick="selectDay('Sunday')" class="day-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-amber-400 text-rose-400 rounded-xl p-1 sm:p-1.5 flex flex-col items-center justify-center cursor-pointer shadow overflow-hidden">
+            <button onclick="selectDay('Sunday')" class="day-btn word-card bg-pink-50 border-2 border-pink-200 hover:border-pink-400 text-pink-600 rounded-xl p-1.5 flex flex-col items-center justify-center cursor-pointer shadow-sm">
               <span class="card-emoji mb-0.5">☀️</span>
-              <span class="text-2xl sm:text-3xl xl:text-4xl font-extrabold font-english truncate w-full text-center">Sunday</span>
-              <span class="text-xs sm:text-sm font-korean text-slate-300 font-bold">일요일</span>
+              <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-extrabold font-english">Sunday</span>
+              <span class="text-xs sm:text-sm font-korean text-slate-500 font-bold">일요일</span>
             </button>
           </div>
         </div>
 
         <!-- SECTION 2: MONTHS (달: Jan~Dec) -->
-        <div class="pt-2 border-t border-slate-800">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-2xl font-extrabold font-korean text-indigo-300 flex items-center gap-2">
+        <div class="pt-2 border-t border-slate-200">
+          <div class="flex items-center justify-between mb-2 flex-wrap gap-1">
+            <span class="text-2xl font-extrabold font-korean text-violet-600 flex items-center gap-2">
               <span>🗓️ 2. Months (1월 ~ 12월)</span>
             </span>
             <span class="text-base font-korean text-slate-400">원하는 달을 클릭하세요</span>
           </div>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
-            <button onclick="selectMonth('January')" class="month-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-indigo-400 text-indigo-200 rounded-xl py-1.5 px-1 text-center cursor-pointer shadow overflow-hidden">
-              <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english truncate">January</div>
-              <div class="text-xs sm:text-sm font-korean text-slate-300 font-bold">1월</div>
-            </button>
-            <button onclick="selectMonth('February')" class="month-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-indigo-400 text-indigo-200 rounded-xl py-1.5 px-1 text-center cursor-pointer shadow overflow-hidden">
-              <div class="text-xl sm:text-2xl xl:text-3xl font-black font-english truncate">February</div>
-              <div class="text-xs sm:text-sm font-korean text-slate-300 font-bold">2월</div>
-            </button>
-            <button onclick="selectMonth('March')" class="month-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-indigo-400 text-indigo-200 rounded-xl py-1.5 px-1 text-center cursor-pointer shadow overflow-hidden">
-              <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english truncate">March</div>
-              <div class="text-xs sm:text-sm font-korean text-slate-300 font-bold">3월</div>
-            </button>
-            <button onclick="selectMonth('April')" class="month-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-indigo-400 text-indigo-200 rounded-xl py-1.5 px-1 text-center cursor-pointer shadow overflow-hidden">
-              <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english truncate">April</div>
-              <div class="text-xs sm:text-sm font-korean text-slate-300 font-bold">4월</div>
-            </button>
-            <button onclick="selectMonth('May')" class="month-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-indigo-400 text-indigo-200 rounded-xl py-1.5 px-1 text-center cursor-pointer shadow overflow-hidden">
-              <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english truncate">May</div>
-              <div class="text-xs sm:text-sm font-korean text-slate-300 font-bold">5월</div>
-            </button>
-            <button onclick="selectMonth('June')" class="month-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-indigo-400 text-indigo-200 rounded-xl py-1.5 px-1 text-center cursor-pointer shadow overflow-hidden">
-              <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english truncate">June</div>
-              <div class="text-xs sm:text-sm font-korean text-slate-300 font-bold">6월</div>
-            </button>
-            <button onclick="selectMonth('July')" class="month-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-indigo-400 text-indigo-200 rounded-xl py-1.5 px-1 text-center cursor-pointer shadow overflow-hidden">
-              <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english truncate">July</div>
-              <div class="text-xs sm:text-sm font-korean text-slate-300 font-bold">7월</div>
-            </button>
-            <button onclick="selectMonth('August')" class="month-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-indigo-400 text-indigo-200 rounded-xl py-1.5 px-1 text-center cursor-pointer shadow overflow-hidden">
-              <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english truncate">August</div>
-              <div class="text-xs sm:text-sm font-korean text-slate-300 font-bold">8월</div>
-            </button>
-            <button onclick="selectMonth('September')" class="month-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-indigo-400 text-indigo-200 rounded-xl py-1.5 px-1 text-center cursor-pointer shadow overflow-hidden">
-              <div class="text-lg sm:text-xl xl:text-2xl font-black font-english truncate">September</div>
-              <div class="text-xs sm:text-sm font-korean text-slate-300 font-bold">9월</div>
-            </button>
-            <button onclick="selectMonth('October')" class="month-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-indigo-400 text-indigo-200 rounded-xl py-1.5 px-1 text-center cursor-pointer shadow overflow-hidden">
-              <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english truncate">October</div>
-              <div class="text-xs sm:text-sm font-korean text-slate-300 font-bold">10월</div>
-            </button>
-            <button onclick="selectMonth('November')" class="month-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-indigo-400 text-indigo-200 rounded-xl py-1.5 px-1 text-center cursor-pointer shadow overflow-hidden">
-              <div class="text-xl sm:text-2xl xl:text-3xl font-black font-english truncate">November</div>
-              <div class="text-xs sm:text-sm font-korean text-slate-300 font-bold">11월</div>
-            </button>
-            <button onclick="selectMonth('December')" class="month-btn word-card bg-slate-800 border-2 border-slate-700 hover:border-indigo-400 text-indigo-200 rounded-xl py-1.5 px-1 text-center cursor-pointer shadow overflow-hidden">
-              <div class="text-xl sm:text-2xl xl:text-3xl font-black font-english truncate">December</div>
-              <div class="text-xs sm:text-sm font-korean text-slate-300 font-bold">12월</div>
-            </button>
-          </div>
+          <div id="monthGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2"></div>
         </div>
 
         <!-- SECTION 3: DATES (일: 1st ~ 31st) -->
-        <div class="pt-2 border-t border-slate-800">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-2xl font-extrabold font-korean text-sky-300 flex items-center gap-2">
+        <div class="pt-2 border-t border-slate-200">
+          <div class="flex items-center justify-between mb-2 flex-wrap gap-1">
+            <span class="text-2xl font-extrabold font-korean text-sky-600 flex items-center gap-2">
               <span>🔢 3. Date Numbers (1일 ~ 31일)</span>
             </span>
             <span class="text-base font-korean text-slate-400">원하는 날짜(일)를 클릭하세요</span>
@@ -273,17 +228,17 @@
       </div>
 
       <!-- BOTTOM: Answer Template (Order: Today is [요일], [달] [일].) -->
-      <div class="bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-900 border-4 border-indigo-400 rounded-3xl p-3 sm:p-5 text-center shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-3 animate-glow">
+      <div style="--glow-color: rgba(99,102,241,0.45)" class="bg-indigo-50 border-4 border-indigo-300 rounded-3xl p-3 sm:p-5 text-center shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3 animate-glow">
         <div class="text-left">
-          <div id="dateAnswerText" class="text-2xl sm:text-3xl md:text-4xl font-black text-white font-english tracking-wider flex flex-wrap items-baseline gap-2">
+          <div id="dateAnswerText" class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-800 font-english tracking-wider flex flex-wrap items-baseline gap-2">
             <span>Today is</span>
-            <span id="selectedDayText" class="inline-block min-w-[120px] sm:min-w-[180px] border-b-4 border-amber-300 text-amber-300 text-center px-2 pb-0.5"></span>,
-            <span id="selectedMonthText" class="inline-block min-w-[120px] sm:min-w-[180px] border-b-4 border-indigo-300 text-indigo-300 text-center px-2 pb-0.5"></span>
-            <span id="selectedDateNumText" class="inline-block min-w-[90px] sm:min-w-[130px] border-b-4 border-sky-300 text-sky-300 text-center px-2 pb-0.5"></span>.
+            <span id="selectedDayText" class="inline-block min-w-[120px] sm:min-w-[180px] border-b-4 border-rose-400 text-rose-600 text-center px-2 pb-0.5"></span>,
+            <span id="selectedMonthText" class="inline-block min-w-[120px] sm:min-w-[180px] border-b-4 border-violet-400 text-violet-600 text-center px-2 pb-0.5"></span>
+            <span id="selectedDateNumText" class="inline-block min-w-[90px] sm:min-w-[130px] border-b-4 border-sky-400 text-sky-600 text-center px-2 pb-0.5"></span>.
           </div>
         </div>
 
-        <button onclick="speakCurrentAnswer('date')" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xl sm:text-2xl font-english px-6 py-3 rounded-2xl shadow-xl transition active:scale-95 flex items-center gap-2 shrink-0">
+        <button onclick="speakCurrentAnswer('date')" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-extrabold text-xl sm:text-2xl font-english px-6 py-3 rounded-2xl shadow-md transition active:scale-95 flex items-center gap-2 shrink-0">
           <span>🗣️</span>
           <span>Read Aloud!</span>
         </button>
@@ -296,115 +251,115 @@
     <section id="slide-2" class="slide-content hidden flex-col justify-between gap-4 min-h-[80vh]">
 
       <!-- TOP: Question Header -->
-      <div class="bg-slate-900/90 border-4 border-sky-400 rounded-3xl p-3 sm:p-4 text-center shadow-2xl relative">
-        <div class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-amber-300 font-english tracking-wide drop-shadow-lg flex items-center justify-center gap-3">
+      <div class="bg-sky-50 border-4 border-sky-300 rounded-3xl p-3 sm:p-4 text-center shadow-sm relative">
+        <div class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-sky-600 font-english tracking-wide flex items-center justify-center gap-3">
           <span>How's the weather today?</span>
-          <button onclick="speakText(&quot;How's the weather today?&quot;)" class="bg-amber-400 hover:bg-amber-300 text-slate-950 p-2.5 rounded-xl text-2xl transition active:scale-90 shadow-lg" title="질문 발음 듣기">
+          <button onclick="speakText(&quot;How's the weather today?&quot;)" class="bg-amber-400 hover:bg-amber-300 text-slate-900 p-2.5 rounded-xl text-2xl transition active:scale-90 shadow-md" title="질문 발음 듣기">
             🔊
           </button>
         </div>
       </div>
 
       <!-- MIDDLE: Weather Categories (16 Words in 4 Column Cards with Extra Large Fonts for TV) -->
-      <div class="bg-slate-900/80 border-2 border-slate-800 rounded-3xl p-3 sm:p-5 shadow-xl flex flex-col justify-center gap-4 flex-1">
+      <div class="bg-slate-50 border-2 border-slate-100 rounded-3xl p-3 sm:p-5 shadow-sm flex flex-col justify-center gap-4 flex-1">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 flex-1">
 
           <!-- CATEGORY 1: 햇살 & 기온 -->
-          <div class="bg-slate-800/80 border-3 border-amber-500/60 rounded-2xl p-3 flex flex-col justify-between shadow-lg">
-            <div class="text-2xl sm:text-3xl font-black font-korean text-amber-300 mb-2 pb-2 border-b-2 border-amber-500/30 text-center flex items-center justify-center gap-2">
+          <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-3 flex flex-col justify-between shadow-sm">
+            <div class="text-2xl sm:text-3xl font-black font-korean text-amber-600 mb-2 pb-2 border-b-2 border-amber-200 text-center flex items-center justify-center gap-2">
               <span>☀️ 1. 햇살 & 기온</span>
             </div>
             <div class="flex flex-col gap-2.5 flex-1 justify-center">
-              <button onclick="selectWeather('sunny', 'Sunny', '화창한')" class="word-card bg-slate-900/90 border-2 border-slate-700 hover:border-amber-400 text-amber-300 rounded-2xl py-3 px-2 text-center overflow-hidden flex flex-col items-center justify-center shadow-md">
-                <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide drop-shadow">Sunny</div>
-                <div class="text-sm sm:text-base font-korean text-slate-300 font-bold">화창한</div>
+              <button onclick="selectWeather('Sunny', '화창한')" class="word-card bg-white border-2 border-amber-200 hover:border-amber-400 text-amber-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Sunny</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">화창한</div>
               </button>
-              <button onclick="selectWeather('clear', 'Clear', '맑은')" class="word-card bg-slate-900/90 border-2 border-slate-700 hover:border-amber-400 text-amber-300 rounded-2xl py-3 px-2 text-center overflow-hidden flex flex-col items-center justify-center shadow-md">
-                <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide drop-shadow">Clear</div>
-                <div class="text-sm sm:text-base font-korean text-slate-300 font-bold">맑은</div>
+              <button onclick="selectWeather('Clear', '맑은')" class="word-card bg-white border-2 border-amber-200 hover:border-amber-400 text-amber-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Clear</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">맑은</div>
               </button>
-              <button onclick="selectWeather('warm', 'Warm', '따뜻한')" class="word-card bg-slate-900/90 border-2 border-slate-700 hover:border-amber-400 text-amber-300 rounded-2xl py-3 px-2 text-center overflow-hidden flex flex-col items-center justify-center shadow-md">
-                <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide drop-shadow">Warm</div>
-                <div class="text-sm sm:text-base font-korean text-slate-300 font-bold">따뜻한</div>
+              <button onclick="selectWeather('Warm', '따뜻한')" class="word-card bg-white border-2 border-amber-200 hover:border-amber-400 text-amber-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Warm</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">따뜻한</div>
               </button>
-              <button onclick="selectWeather('hot', 'Hot', '더운')" class="word-card bg-slate-900/90 border-2 border-slate-700 hover:border-amber-400 text-amber-300 rounded-2xl py-3 px-2 text-center overflow-hidden flex flex-col items-center justify-center shadow-md">
-                <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide drop-shadow">Hot</div>
-                <div class="text-sm sm:text-base font-korean text-slate-300 font-bold">더운</div>
+              <button onclick="selectWeather('Hot', '더운')" class="word-card bg-white border-2 border-amber-200 hover:border-amber-400 text-amber-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Hot</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">더운</div>
               </button>
             </div>
           </div>
 
           <!-- CATEGORY 2: 구름 & 바람 -->
-          <div class="bg-slate-800/80 border-3 border-sky-500/60 rounded-2xl p-3 flex flex-col justify-between shadow-lg">
-            <div class="text-2xl sm:text-3xl font-black font-korean text-sky-300 mb-2 pb-2 border-b-2 border-sky-500/30 text-center flex items-center justify-center gap-2">
+          <div class="bg-sky-50 border-2 border-sky-300 rounded-2xl p-3 flex flex-col justify-between shadow-sm">
+            <div class="text-2xl sm:text-3xl font-black font-korean text-sky-600 mb-2 pb-2 border-b-2 border-sky-200 text-center flex items-center justify-center gap-2">
               <span>☁️ 2. 구름 & 바람</span>
             </div>
             <div class="flex flex-col gap-2.5 flex-1 justify-center">
-              <button onclick="selectWeather('cloudy', 'Cloudy', '구름낀')" class="word-card bg-slate-900/90 border-2 border-slate-700 hover:border-sky-400 text-sky-300 rounded-2xl py-3 px-2 text-center overflow-hidden flex flex-col items-center justify-center shadow-md">
-                <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide drop-shadow">Cloudy</div>
-                <div class="text-sm sm:text-base font-korean text-slate-300 font-bold">구름낀</div>
+              <button onclick="selectWeather('Cloudy', '구름낀')" class="word-card bg-white border-2 border-sky-200 hover:border-sky-400 text-sky-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Cloudy</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">구름낀</div>
               </button>
-              <button onclick="selectWeather('foggy', 'Foggy', '안개낀')" class="word-card bg-slate-900/90 border-2 border-slate-700 hover:border-sky-400 text-sky-300 rounded-2xl py-3 px-2 text-center overflow-hidden flex flex-col items-center justify-center shadow-md">
-                <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide drop-shadow">Foggy</div>
-                <div class="text-sm sm:text-base font-korean text-slate-300 font-bold">안개낀</div>
+              <button onclick="selectWeather('Foggy', '안개낀')" class="word-card bg-white border-2 border-sky-200 hover:border-sky-400 text-sky-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Foggy</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">안개낀</div>
               </button>
-              <button onclick="selectWeather('windy', 'Windy', '바람보는')" class="word-card bg-slate-900/90 border-2 border-slate-700 hover:border-sky-400 text-sky-300 rounded-2xl py-3 px-2 text-center overflow-hidden flex flex-col items-center justify-center shadow-md">
-                <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide drop-shadow">Windy</div>
-                <div class="text-sm sm:text-base font-korean text-slate-300 font-bold">바람보는</div>
+              <button onclick="selectWeather('Windy', '바람부는')" class="word-card bg-white border-2 border-sky-200 hover:border-sky-400 text-sky-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Windy</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">바람부는</div>
               </button>
-              <button onclick="selectWeather('breezy', 'Breezy', '산들바람')" class="word-card bg-slate-900/90 border-2 border-slate-700 hover:border-sky-400 text-sky-300 rounded-2xl py-3 px-2 text-center overflow-hidden flex flex-col items-center justify-center shadow-md">
-                <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide drop-shadow">Breezy</div>
-                <div class="text-sm sm:text-base font-korean text-slate-300 font-bold">산들바람</div>
+              <button onclick="selectWeather('Breezy', '산들바람부는')" class="word-card bg-white border-2 border-sky-200 hover:border-sky-400 text-sky-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Breezy</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">산들바람부는</div>
               </button>
             </div>
           </div>
 
           <!-- CATEGORY 3: 비 & 천둥 -->
-          <div class="bg-slate-800/80 border-3 border-blue-500/60 rounded-2xl p-3 flex flex-col justify-between shadow-lg">
-            <div class="text-2xl sm:text-3xl font-black font-korean text-blue-300 mb-2 pb-2 border-b-2 border-blue-500/30 text-center flex items-center justify-center gap-2">
+          <div class="bg-blue-50 border-2 border-blue-300 rounded-2xl p-3 flex flex-col justify-between shadow-sm">
+            <div class="text-2xl sm:text-3xl font-black font-korean text-blue-600 mb-2 pb-2 border-b-2 border-blue-200 text-center flex items-center justify-center gap-2">
               <span>🌧️ 3. 비 & 천둥</span>
             </div>
             <div class="flex flex-col gap-2.5 flex-1 justify-center">
-              <button onclick="selectWeather('rainy', 'Rainy', '비오는')" class="word-card bg-slate-900/90 border-2 border-slate-700 hover:border-blue-400 text-blue-300 rounded-2xl py-3 px-2 text-center overflow-hidden flex flex-col items-center justify-center shadow-md">
-                <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide drop-shadow">Rainy</div>
-                <div class="text-sm sm:text-base font-korean text-slate-300 font-bold">비오는</div>
+              <button onclick="selectWeather('Rainy', '비오는')" class="word-card bg-white border-2 border-blue-200 hover:border-blue-400 text-blue-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Rainy</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">비오는</div>
               </button>
-              <button onclick="selectWeather('showery', 'Showery', '소나기')" class="word-card bg-slate-900/90 border-2 border-slate-700 hover:border-blue-400 text-blue-300 rounded-2xl py-3 px-2 text-center overflow-hidden flex flex-col items-center justify-center shadow-md">
-                <div class="text-xl sm:text-2xl xl:text-3xl font-black font-english tracking-wide drop-shadow">Showery</div>
-                <div class="text-sm sm:text-base font-korean text-slate-300 font-bold">소나기내리는</div>
+              <button onclick="selectWeather('Showery', '소나기내리는')" class="word-card bg-white border-2 border-blue-200 hover:border-blue-400 text-blue-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Showery</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">소나기내리는</div>
               </button>
-              <button onclick="selectWeather('stormy', 'Stormy', '폭풍우')" class="word-card bg-slate-900/90 border-2 border-slate-700 hover:border-blue-400 text-blue-300 rounded-2xl py-3 px-2 text-center overflow-hidden flex flex-col items-center justify-center shadow-md">
-                <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide drop-shadow">Stormy</div>
-                <div class="text-sm sm:text-base font-korean text-slate-300 font-bold">폭풍우의</div>
+              <button onclick="selectWeather('Stormy', '폭풍우의')" class="word-card bg-white border-2 border-blue-200 hover:border-blue-400 text-blue-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Stormy</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">폭풍우의</div>
               </button>
-              <button onclick="selectWeather('wet', 'Wet', '젖은')" class="word-card bg-slate-900/90 border-2 border-slate-700 hover:border-blue-400 text-blue-300 rounded-2xl py-3 px-2 text-center overflow-hidden flex flex-col items-center justify-center shadow-md">
-                <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide drop-shadow">Wet</div>
-                <div class="text-sm sm:text-base font-korean text-slate-300 font-bold">축축한</div>
+              <button onclick="selectWeather('Wet', '축축한')" class="word-card bg-white border-2 border-blue-200 hover:border-blue-400 text-blue-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Wet</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">축축한</div>
               </button>
             </div>
           </div>
 
           <!-- CATEGORY 4: 눈 & 추위 -->
-          <div class="bg-slate-800/80 border-3 border-indigo-500/60 rounded-2xl p-3 flex flex-col justify-between shadow-lg">
-            <div class="text-2xl sm:text-3xl font-black font-korean text-indigo-300 mb-2 pb-2 border-b-2 border-indigo-500/30 text-center flex items-center justify-center gap-2">
+          <div class="bg-indigo-50 border-2 border-indigo-300 rounded-2xl p-3 flex flex-col justify-between shadow-sm">
+            <div class="text-2xl sm:text-3xl font-black font-korean text-indigo-600 mb-2 pb-2 border-b-2 border-indigo-200 text-center flex items-center justify-center gap-2">
               <span>❄️ 4. 눈 & 추위</span>
             </div>
             <div class="flex flex-col gap-2.5 flex-1 justify-center">
-              <button onclick="selectWeather('snowy', 'Snowy', '눈오는')" class="word-card bg-slate-900/90 border-2 border-slate-700 hover:border-indigo-400 text-indigo-300 rounded-2xl py-3 px-2 text-center overflow-hidden flex flex-col items-center justify-center shadow-md">
-                <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide drop-shadow">Snowy</div>
-                <div class="text-sm sm:text-base font-korean text-slate-300 font-bold">눈오는</div>
+              <button onclick="selectWeather('Snowy', '눈오는')" class="word-card bg-white border-2 border-indigo-200 hover:border-indigo-400 text-indigo-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Snowy</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">눈오는</div>
               </button>
-              <button onclick="selectWeather('cold', 'Cold', '추운')" class="word-card bg-slate-900/90 border-2 border-slate-700 hover:border-indigo-400 text-indigo-300 rounded-2xl py-3 px-2 text-center overflow-hidden flex flex-col items-center justify-center shadow-md">
-                <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide drop-shadow">Cold</div>
-                <div class="text-sm sm:text-base font-korean text-slate-300 font-bold">추운</div>
+              <button onclick="selectWeather('Cold', '추운')" class="word-card bg-white border-2 border-indigo-200 hover:border-indigo-400 text-indigo-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Cold</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">추운</div>
               </button>
-              <button onclick="selectWeather('freezing', 'Freezing', '매우춥고꽁꽁얼어붙은')" class="word-card bg-slate-900/90 border-2 border-slate-700 hover:border-indigo-400 text-indigo-300 rounded-2xl py-3 px-2 text-center overflow-hidden flex flex-col items-center justify-center shadow-md">
-                <div class="text-xl sm:text-2xl xl:text-3xl font-black font-english tracking-wide drop-shadow">Freezing</div>
-                <div class="text-sm sm:text-base font-korean text-slate-300 font-bold">꽁꽁얼어붙는</div>
+              <button onclick="selectWeather('Freezing', '꽁꽁얼어붙는')" class="word-card bg-white border-2 border-indigo-200 hover:border-indigo-400 text-indigo-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Freezing</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">꽁꽁얼어붙는</div>
               </button>
-              <button onclick="selectWeather('chilly', 'Chilly', '쌀쌀한')" class="word-card bg-slate-900/90 border-2 border-slate-700 hover:border-indigo-400 text-indigo-300 rounded-2xl py-3 px-2 text-center overflow-hidden flex flex-col items-center justify-center shadow-md">
-                <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide drop-shadow">Chilly</div>
-                <div class="text-sm sm:text-base font-korean text-slate-300 font-bold">쌀쌀한</div>
+              <button onclick="selectWeather('Chilly', '쌀쌀한')" class="word-card bg-white border-2 border-indigo-200 hover:border-indigo-400 text-indigo-600 rounded-2xl py-3 px-2 text-center flex flex-col items-center justify-center shadow-sm">
+                <span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english tracking-wide">Chilly</span>
+                <div class="text-sm sm:text-base font-korean text-slate-500 font-bold">쌀쌀한</div>
               </button>
             </div>
           </div>
@@ -413,15 +368,15 @@
       </div>
 
       <!-- BOTTOM: Answer Template -->
-      <div class="bg-gradient-to-r from-sky-900 via-sky-950 to-slate-900 border-4 border-sky-400 rounded-3xl p-4 sm:p-5 text-center shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-glow">
+      <div style="--glow-color: rgba(56,189,248,0.45)" class="bg-sky-50 border-4 border-sky-300 rounded-3xl p-4 sm:p-5 text-center shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 animate-glow">
         <div class="text-left">
-          <div id="weatherAnswerText" class="text-3xl sm:text-4xl md:text-5xl font-black text-white font-english tracking-wider flex items-baseline gap-3">
+          <div id="weatherAnswerText" class="text-3xl sm:text-4xl md:text-5xl font-black text-slate-800 font-english tracking-wider flex items-baseline gap-3">
             <span>It's</span>
-            <span id="selectedWeatherText" class="inline-block min-w-[200px] sm:min-w-[280px] border-b-4 border-amber-300 text-amber-300 text-center px-3 pb-1"></span>.
+            <span id="selectedWeatherText" class="inline-block min-w-[200px] sm:min-w-[280px] border-b-4 border-sky-400 text-sky-600 text-center px-3 pb-1"></span>.
           </div>
         </div>
 
-        <button onclick="speakCurrentAnswer('weather')" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-2xl sm:text-3xl font-english px-8 py-4 rounded-2xl shadow-xl transition active:scale-95 flex items-center gap-3 shrink-0">
+        <button onclick="speakCurrentAnswer('weather')" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-extrabold text-2xl sm:text-3xl font-english px-8 py-4 rounded-2xl shadow-md transition active:scale-95 flex items-center gap-3 shrink-0">
           <span>🗣️</span>
           <span>Read Aloud!</span>
         </button>
@@ -434,119 +389,96 @@
     <section id="slide-3" class="slide-content hidden flex-col justify-between gap-4 min-h-[80vh]">
 
       <!-- TOP: Question Header -->
-      <div class="bg-slate-900/90 border-4 border-emerald-400 rounded-3xl p-3 sm:p-4 text-center shadow-2xl relative">
-        <div class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-amber-300 font-english tracking-wide drop-shadow-lg flex items-center justify-center gap-3">
+      <div class="bg-emerald-50 border-4 border-emerald-300 rounded-3xl p-3 sm:p-4 text-center shadow-sm relative">
+        <div class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-emerald-600 font-english tracking-wide flex items-center justify-center gap-3">
           <span>How are you today?</span>
-          <button onclick="speakText(&quot;How are you today?&quot;)" class="bg-amber-400 hover:bg-amber-300 text-slate-950 p-2.5 rounded-xl text-2xl transition active:scale-90 shadow-lg" title="질문 발음 듣기">
+          <button onclick="speakText(&quot;How are you today?&quot;)" class="bg-amber-400 hover:bg-amber-300 text-slate-900 p-2.5 rounded-xl text-2xl transition active:scale-90 shadow-md" title="질문 발음 듣기">
             🔊
           </button>
         </div>
       </div>
 
       <!-- MIDDLE: Inside Out Emotion Words (7 Characters x 3 Words) -->
-      <div class="bg-slate-900/80 border-2 border-slate-800 rounded-3xl p-3 sm:p-5 shadow-xl flex flex-col justify-center gap-3 flex-1">
+      <div class="bg-slate-50 border-2 border-slate-100 rounded-3xl p-3 sm:p-5 shadow-sm flex flex-col justify-center gap-3 flex-1">
 
         <!-- 21 Words Categorized by 7 Inside Out Characters with Vector Character Avatars -->
         <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5">
 
           <!-- 1. JOY (기쁨이) -->
-          <div class="bg-amber-950/40 border-2 border-amber-400/80 rounded-2xl p-2 flex flex-col gap-2 shadow-lg">
-            <!-- Joy Character Card Header -->
+          <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-2 flex flex-col gap-2 shadow-sm">
             <div class="bg-gradient-to-b from-amber-400 via-amber-500 to-amber-600 text-slate-950 rounded-xl p-2 text-center shadow-md border border-amber-300 flex flex-col items-center justify-center relative overflow-hidden">
-              <!-- Joy SVG Illustration -->
               <svg class="w-12 h-12 sm:w-14 sm:h-14 drop-shadow-md" viewBox="0 0 100 100" fill="none">
-                <!-- Glowing Aura -->
                 <circle cx="50" cy="50" r="46" fill="#fde047" fill-opacity="0.3"/>
-                <!-- Blue Pixie Hair -->
                 <path d="M 22 52 C 18 30 35 15 50 15 C 68 15 82 30 78 52 C 82 40 70 25 50 25 C 30 25 18 40 22 52 Z" fill="#2563eb"/>
                 <path d="M 20 40 C 15 25 35 10 50 10 C 70 10 85 25 80 40 C 72 18 58 12 50 12 C 38 12 25 22 20 40 Z" fill="#3b82f6"/>
-                <!-- Face -->
                 <ellipse cx="50" cy="54" rx="26" ry="28" fill="#fef08a"/>
-                <!-- Sparkling Big Eyes -->
                 <ellipse cx="40" cy="48" rx="6" ry="8" fill="#1e3a8a"/>
                 <ellipse cx="60" cy="48" rx="6" ry="8" fill="#1e3a8a"/>
                 <circle cx="38" cy="46" r="2.5" fill="#ffffff"/>
                 <circle cx="58" cy="46" r="2.5" fill="#ffffff"/>
-                <!-- Joyful Mouth -->
                 <path d="M 38 62 Q 50 78 62 62 Z" fill="#dc2626"/>
                 <path d="M 40 63 Q 50 70 60 63 Z" fill="#fef08a"/>
               </svg>
               <span class="text-xl sm:text-2xl font-black font-korean tracking-wide text-slate-950 drop-shadow mt-1">기쁨이</span>
               <span class="text-xs font-extrabold font-english text-amber-950 uppercase tracking-widest">Joy</span>
             </div>
-            <button onclick="selectFeeling('happy', 'Joy (기쁨이)')" class="word-card bg-amber-600/90 hover:bg-amber-500 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-xl sm:text-2xl xl:text-3xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Happy</div>
-              <div class="text-xs sm:text-sm font-korean text-amber-100 font-bold">행복한</div>
+            <button onclick="selectFeeling('happy', 'Joy (기쁨이)')" class="word-card bg-white hover:bg-amber-100 border-2 border-amber-200 text-amber-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-xl sm:text-2xl xl:text-3xl font-black font-english leading-tight">Happy</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">행복한</div>
             </button>
-            <button onclick="selectFeeling('joyful', 'Joy (기쁨이)')" class="word-card bg-amber-600/90 hover:bg-amber-500 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-xl sm:text-2xl xl:text-3xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Joyful</div>
-              <div class="text-xs sm:text-sm font-korean text-amber-100 font-bold">기쁜</div>
+            <button onclick="selectFeeling('joyful', 'Joy (기쁨이)')" class="word-card bg-white hover:bg-amber-100 border-2 border-amber-200 text-amber-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-xl sm:text-2xl xl:text-3xl font-black font-english leading-tight">Joyful</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">기쁜</div>
             </button>
-            <button onclick="selectFeeling('excited', 'Joy (기쁨이)')" class="word-card bg-amber-600/90 hover:bg-amber-500 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-lg sm:text-xl xl:text-2xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Excited</div>
-              <div class="text-xs sm:text-sm font-korean text-amber-100 font-bold">신나는</div>
+            <button onclick="selectFeeling('excited', 'Joy (기쁨이)')" class="word-card bg-white hover:bg-amber-100 border-2 border-amber-200 text-amber-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Excited</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">신나는</div>
             </button>
           </div>
 
           <!-- 2. SADNESS (슬픔이) -->
-          <div class="bg-blue-950/40 border-2 border-blue-400/80 rounded-2xl p-2 flex flex-col gap-2 shadow-lg">
-            <!-- Sadness Character Card Header -->
+          <div class="bg-blue-50 border-2 border-blue-300 rounded-2xl p-2 flex flex-col gap-2 shadow-sm">
             <div class="bg-gradient-to-b from-blue-500 via-blue-600 to-blue-700 text-white rounded-xl p-2 text-center shadow-md border border-blue-300 flex flex-col items-center justify-center relative overflow-hidden">
-              <!-- Sadness SVG Illustration -->
               <svg class="w-12 h-12 sm:w-14 sm:h-14 drop-shadow-md" viewBox="0 0 100 100" fill="none">
-                <!-- Blue Teardrop Face & Hair -->
                 <path d="M 20 65 C 18 35 32 18 50 18 C 68 18 82 35 80 65 C 80 82 66 88 50 88 C 34 88 20 82 20 65 Z" fill="#60a5fa"/>
-                <!-- Dark Hair Bob -->
                 <path d="M 22 48 C 22 25 35 15 50 15 C 65 15 78 25 78 48 C 65 30 35 30 22 48 Z" fill="#1d4ed8"/>
-                <!-- Round Glasses -->
                 <circle cx="38" cy="54" r="12" stroke="#ffffff" stroke-width="3.5" fill="#93c5fd" fill-opacity="0.4"/>
                 <circle cx="62" cy="54" r="12" stroke="#ffffff" stroke-width="3.5" fill="#93c5fd" fill-opacity="0.4"/>
-                <line x1="50" y1="54" x2="50" y2="54" stroke="#ffffff" stroke-width="4"/>
-                <!-- Sad Eyes -->
                 <ellipse cx="38" cy="54" rx="4" ry="5" fill="#1e3a8a"/>
                 <ellipse cx="62" cy="54" rx="4" ry="5" fill="#1e3a8a"/>
-                <!-- Tear Drop -->
                 <path d="M 72 65 C 72 65 77 72 77 75 C 77 78 75 80 72 80 C 69 80 67 78 67 75 C 67 72 72 65 72 65 Z" fill="#38bdf8"/>
-                <!-- Downward Mouth -->
                 <path d="M 42 74 Q 50 68 58 74" stroke="#1e3a8a" stroke-width="3" stroke-linecap="round"/>
               </svg>
               <span class="text-xl sm:text-2xl font-black font-korean tracking-wide text-white drop-shadow mt-1">슬픔이</span>
               <span class="text-xs font-extrabold font-english text-blue-200 uppercase tracking-widest">Sadness</span>
             </div>
-            <button onclick="selectFeeling('sad', 'Sadness (슬픔이)')" class="word-card bg-blue-600/90 hover:bg-blue-500 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Sad</div>
-              <div class="text-xs sm:text-sm font-korean text-blue-100 font-bold">슬픈</div>
+            <button onclick="selectFeeling('sad', 'Sadness (슬픔이)')" class="word-card bg-white hover:bg-blue-100 border-2 border-blue-200 text-blue-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-xl sm:text-2xl xl:text-3xl font-black font-english leading-tight">Sad</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">슬픈</div>
             </button>
-            <button onclick="selectFeeling('gloomy', 'Sadness (슬픔이)')" class="word-card bg-blue-600/90 hover:bg-blue-500 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-xl sm:text-2xl xl:text-3xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Gloomy</div>
-              <div class="text-xs sm:text-sm font-korean text-blue-100 font-bold">우울한</div>
+            <button onclick="selectFeeling('gloomy', 'Sadness (슬픔이)')" class="word-card bg-white hover:bg-blue-100 border-2 border-blue-200 text-blue-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Gloomy</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">우울한</div>
             </button>
-            <button onclick="selectFeeling('lonely', 'Sadness (슬픔이)')" class="word-card bg-blue-600/90 hover:bg-blue-500 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-xl sm:text-2xl xl:text-3xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Lonely</div>
-              <div class="text-xs sm:text-sm font-korean text-blue-100 font-bold">외로운</div>
+            <button onclick="selectFeeling('lonely', 'Sadness (슬픔이)')" class="word-card bg-white hover:bg-blue-100 border-2 border-blue-200 text-blue-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Lonely</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">외로운</div>
             </button>
           </div>
 
           <!-- 3. ANGER (버럭이) -->
-          <div class="bg-red-950/40 border-2 border-red-400/80 rounded-2xl p-2 flex flex-col gap-2 shadow-lg">
-            <!-- Anger Character Card Header -->
+          <div class="bg-red-50 border-2 border-red-300 rounded-2xl p-2 flex flex-col gap-2 shadow-sm">
             <div class="bg-gradient-to-b from-red-500 via-red-600 to-red-700 text-white rounded-xl p-2 text-center shadow-md border border-red-300 flex flex-col items-center justify-center relative overflow-hidden">
-              <!-- Anger SVG Illustration -->
               <svg class="w-12 h-12 sm:w-14 sm:h-14 drop-shadow-md" viewBox="0 0 100 100" fill="none">
-                <!-- Fire Top -->
                 <path d="M 32 30 Q 38 10 50 5 Q 60 18 68 28 Z" fill="#f97316"/>
                 <path d="M 40 28 Q 50 12 55 10 Q 62 20 62 28 Z" fill="#facc15"/>
-                <!-- Square Red Head -->
                 <rect x="22" y="28" width="56" height="52" rx="10" fill="#ef4444"/>
-                <!-- Angry Eyebrows -->
                 <path d="M 30 42 L 48 50" stroke="#7f1d1d" stroke-width="6" stroke-linecap="round"/>
                 <path d="M 70 42 L 52 50" stroke="#7f1d1d" stroke-width="6" stroke-linecap="round"/>
-                <!-- Fierce Eyes -->
                 <ellipse cx="38" cy="54" rx="5" ry="6" fill="#ffffff"/>
                 <ellipse cx="62" cy="54" rx="5" ry="6" fill="#ffffff"/>
                 <circle cx="40" cy="54" r="2.5" fill="#000000"/>
                 <circle cx="60" cy="54" r="2.5" fill="#000000"/>
-                <!-- Clenched Tooth Mouth -->
                 <rect x="34" y="64" width="32" height="10" rx="3" fill="#ffffff" stroke="#7f1d1d" stroke-width="2"/>
                 <line x1="42" y1="64" x2="42" y2="74" stroke="#7f1d1d" stroke-width="1.5"/>
                 <line x1="50" y1="64" x2="50" y2="74" stroke="#7f1d1d" stroke-width="1.5"/>
@@ -555,164 +487,137 @@
               <span class="text-xl sm:text-2xl font-black font-korean tracking-wide text-white drop-shadow mt-1">버럭이</span>
               <span class="text-xs font-extrabold font-english text-red-200 uppercase tracking-widest">Anger</span>
             </div>
-            <button onclick="selectFeeling('angry', 'Anger (버럭이)')" class="word-card bg-red-600/90 hover:bg-red-500 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-xl sm:text-2xl xl:text-3xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Angry</div>
-              <div class="text-xs sm:text-sm font-korean text-red-100 font-bold">화난</div>
+            <button onclick="selectFeeling('angry', 'Anger (버럭이)')" class="word-card bg-white hover:bg-red-100 border-2 border-red-200 text-red-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Angry</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">화난</div>
             </button>
-            <button onclick="selectFeeling('mad', 'Anger (버럭이)')" class="word-card bg-red-600/90 hover:bg-red-500 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Mad</div>
-              <div class="text-xs sm:text-sm font-korean text-red-100 font-bold">몹시성난</div>
+            <button onclick="selectFeeling('mad', 'Anger (버럭이)')" class="word-card bg-white hover:bg-red-100 border-2 border-red-200 text-red-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-xl sm:text-2xl xl:text-3xl font-black font-english leading-tight">Mad</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">몹시성난</div>
             </button>
-            <button onclick="selectFeeling('upset', 'Anger (버럭이)')" class="word-card bg-red-600/90 hover:bg-red-500 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-xl sm:text-2xl xl:text-3xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Upset</div>
-              <div class="text-xs sm:text-sm font-korean text-red-100 font-bold">속상한</div>
+            <button onclick="selectFeeling('upset', 'Anger (버럭이)')" class="word-card bg-white hover:bg-red-100 border-2 border-red-200 text-red-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Upset</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">속상한</div>
             </button>
           </div>
 
           <!-- 4. FEAR (소심이) -->
-          <div class="bg-purple-950/40 border-2 border-purple-400/80 rounded-2xl p-2 flex flex-col gap-2 shadow-lg">
-            <!-- Fear Character Card Header -->
+          <div class="bg-purple-50 border-2 border-purple-300 rounded-2xl p-2 flex flex-col gap-2 shadow-sm">
             <div class="bg-gradient-to-b from-purple-500 via-purple-600 to-purple-700 text-white rounded-xl p-2 text-center shadow-md border border-purple-300 flex flex-col items-center justify-center relative overflow-hidden">
-              <!-- Fear SVG Illustration -->
               <svg class="w-12 h-12 sm:w-14 sm:h-14 drop-shadow-md" viewBox="0 0 100 100" fill="none">
-                <!-- Hair Strand -->
                 <path d="M 50 22 C 55 10 70 8 68 18 C 66 25 54 22 50 25 Z" fill="#a855f7"/>
-                <!-- Skinny Elongated Head -->
                 <ellipse cx="50" cy="55" rx="20" ry="30" fill="#c084fc"/>
-                <!-- Huge Frightened Eyes -->
                 <ellipse cx="40" cy="48" rx="9" ry="11" fill="#ffffff"/>
                 <ellipse cx="60" cy="48" rx="9" ry="11" fill="#ffffff"/>
                 <circle cx="42" cy="48" r="3.5" fill="#3b0764"/>
                 <circle cx="58" cy="48" r="3.5" fill="#3b0764"/>
-                <!-- Worried Eyebrows -->
                 <path d="M 30 34 Q 40 40 46 36" stroke="#3b0764" stroke-width="3" stroke-linecap="round"/>
                 <path d="M 70 34 Q 60 40 54 36" stroke="#3b0764" stroke-width="3" stroke-linecap="round"/>
-                <!-- Screaming Mouth -->
                 <ellipse cx="50" cy="72" rx="7" ry="9" fill="#3b0764"/>
               </svg>
               <span class="text-xl sm:text-2xl font-black font-korean tracking-wide text-white drop-shadow mt-1">소심이</span>
               <span class="text-xs font-extrabold font-english text-purple-200 uppercase tracking-widest">Fear</span>
             </div>
-            <button onclick="selectFeeling('scared', 'Fear (소심이)')" class="word-card bg-purple-600/90 hover:bg-purple-500 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-xl sm:text-2xl xl:text-3xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Scared</div>
-              <div class="text-xs sm:text-sm font-korean text-purple-100 font-bold">두려운</div>
+            <button onclick="selectFeeling('scared', 'Fear (소심이)')" class="word-card bg-white hover:bg-purple-100 border-2 border-purple-200 text-purple-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Scared</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">두려운</div>
             </button>
-            <button onclick="selectFeeling('nervous', 'Fear (소심이)')" class="word-card bg-purple-600/90 hover:bg-purple-500 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-lg sm:text-xl xl:text-2xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Nervous</div>
-              <div class="text-xs sm:text-sm font-korean text-purple-100 font-bold">긴장되는</div>
+            <button onclick="selectFeeling('nervous', 'Fear (소심이)')" class="word-card bg-white hover:bg-purple-100 border-2 border-purple-200 text-purple-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-base sm:text-lg xl:text-xl font-black font-english leading-tight">Nervous</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">긴장되는</div>
             </button>
-            <button onclick="selectFeeling('afraid', 'Fear (소심이)')" class="word-card bg-purple-600/90 hover:bg-purple-500 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-xl sm:text-2xl xl:text-3xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Afraid</div>
-              <div class="text-xs sm:text-sm font-korean text-purple-100 font-bold">겁나는</div>
+            <button onclick="selectFeeling('afraid', 'Fear (소심이)')" class="word-card bg-white hover:bg-purple-100 border-2 border-purple-200 text-purple-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Afraid</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">겁나는</div>
             </button>
           </div>
 
           <!-- 5. DISGUST (까칠이) -->
-          <div class="bg-emerald-950/40 border-2 border-emerald-400/80 rounded-2xl p-2 flex flex-col gap-2 shadow-lg">
-            <!-- Disgust Character Card Header -->
+          <div class="bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-2 flex flex-col gap-2 shadow-sm">
             <div class="bg-gradient-to-b from-emerald-500 via-emerald-600 to-emerald-700 text-white rounded-xl p-2 text-center shadow-md border border-emerald-300 flex flex-col items-center justify-center relative overflow-hidden">
-              <!-- Disgust SVG Illustration -->
               <svg class="w-12 h-12 sm:w-14 sm:h-14 drop-shadow-md" viewBox="0 0 100 100" fill="none">
-                <!-- Flipped Green Hair -->
                 <path d="M 18 55 C 15 25 35 15 50 15 C 65 15 85 25 82 55 C 88 45 78 20 50 20 C 22 20 12 45 18 55 Z" fill="#15803d"/>
-                <!-- Green Face -->
                 <ellipse cx="50" cy="56" rx="24" ry="26" fill="#4ade80"/>
-                <!-- Stylish Eyelashes & Eyes -->
                 <path d="M 32 46 Q 40 40 46 48" stroke="#064e3b" stroke-width="3"/>
                 <path d="M 68 46 Q 60 40 54 48" stroke="#064e3b" stroke-width="3"/>
                 <circle cx="39" cy="50" r="4" fill="#064e3b"/>
                 <circle cx="61" cy="50" r="4" fill="#064e3b"/>
-                <!-- Unimpressed Mouth -->
                 <path d="M 40 70 Q 48 66 58 68" stroke="#064e3b" stroke-width="3.5" stroke-linecap="round"/>
-                <!-- Pink Scarf Accent -->
                 <path d="M 35 80 Q 50 88 65 80 L 68 88 Q 50 96 32 88 Z" fill="#ec4899"/>
               </svg>
               <span class="text-xl sm:text-2xl font-black font-korean tracking-wide text-white drop-shadow mt-1">까칠이</span>
               <span class="text-xs font-extrabold font-english text-emerald-200 uppercase tracking-widest">Disgust</span>
             </div>
-            <button onclick="selectFeeling('disgusted', 'Disgust (까칠이)')" class="word-card bg-emerald-700/90 hover:bg-emerald-600 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-base sm:text-lg xl:text-xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Disgusted</div>
-              <div class="text-xs sm:text-sm font-korean text-emerald-100 font-bold">까칠한</div>
+            <button onclick="selectFeeling('disgusted', 'Disgust (까칠이)')" class="word-card bg-white hover:bg-emerald-100 border-2 border-emerald-200 text-emerald-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-base sm:text-lg xl:text-xl font-black font-english leading-tight">Disgusted</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">까칠한</div>
             </button>
-            <button onclick="selectFeeling('annoyed', 'Disgust (까칠이)')" class="word-card bg-emerald-700/90 hover:bg-emerald-600 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-lg sm:text-xl xl:text-2xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Annoyed</div>
-              <div class="text-xs sm:text-sm font-korean text-emerald-100 font-bold">짜증난</div>
+            <button onclick="selectFeeling('annoyed', 'Disgust (까칠이)')" class="word-card bg-white hover:bg-emerald-100 border-2 border-emerald-200 text-emerald-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Annoyed</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">짜증난</div>
             </button>
-            <button onclick="selectFeeling('yucky', 'Disgust (까칠이)')" class="word-card bg-emerald-700/90 hover:bg-emerald-600 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-xl sm:text-2xl xl:text-3xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Yucky</div>
-              <div class="text-xs sm:text-sm font-korean text-emerald-100 font-bold">불쾌한</div>
+            <button onclick="selectFeeling('yucky', 'Disgust (까칠이)')" class="word-card bg-white hover:bg-emerald-100 border-2 border-emerald-200 text-emerald-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Yucky</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">불쾌한</div>
             </button>
           </div>
 
           <!-- 6. ANXIETY (불안이) -->
-          <div class="bg-orange-950/40 border-2 border-orange-400/80 rounded-2xl p-2 flex flex-col gap-2 shadow-lg">
-            <!-- Anxiety Character Card Header -->
+          <div class="bg-orange-50 border-2 border-orange-300 rounded-2xl p-2 flex flex-col gap-2 shadow-sm">
             <div class="bg-gradient-to-b from-orange-500 via-orange-600 to-orange-700 text-white rounded-xl p-2 text-center shadow-md border border-orange-300 flex flex-col items-center justify-center relative overflow-hidden">
-              <!-- Anxiety SVG Illustration -->
               <svg class="w-12 h-12 sm:w-14 sm:h-14 drop-shadow-md" viewBox="0 0 100 100" fill="none">
-                <!-- Frayed Wild Hair -->
                 <path d="M 25 35 L 35 15 L 42 28 L 50 8 L 58 28 L 65 12 L 75 35 Z" fill="#ea580c"/>
-                <!-- Orange Skin Head -->
                 <ellipse cx="50" cy="58" rx="22" ry="24" fill="#fb923c"/>
-                <!-- Giant Anxious Eyes -->
                 <circle cx="38" cy="52" r="10" fill="#ffffff"/>
                 <circle cx="62" cy="52" r="10" fill="#ffffff"/>
                 <circle cx="40" cy="52" r="3" fill="#431407"/>
                 <circle cx="60" cy="52" r="3" fill="#431407"/>
-                <!-- Trembling Wavy Mouth -->
                 <path d="M 36 70 Q 42 74 48 68 Q 54 64 64 70" stroke="#431407" stroke-width="3" stroke-linecap="round"/>
               </svg>
               <span class="text-xl sm:text-2xl font-black font-korean tracking-wide text-white drop-shadow mt-1">불안이</span>
               <span class="text-xs font-extrabold font-english text-orange-200 uppercase tracking-widest">Anxiety</span>
             </div>
-            <button onclick="selectFeeling('anxious', 'Anxiety (불안이)')" class="word-card bg-orange-600/90 hover:bg-orange-500 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-lg sm:text-xl xl:text-2xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Anxious</div>
-              <div class="text-xs sm:text-sm font-korean text-orange-100 font-bold">불안한</div>
+            <button onclick="selectFeeling('anxious', 'Anxiety (불안이)')" class="word-card bg-white hover:bg-orange-100 border-2 border-orange-200 text-orange-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-base sm:text-lg xl:text-xl font-black font-english leading-tight">Anxious</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">불안한</div>
             </button>
-            <button onclick="selectFeeling('worried', 'Anxiety (불안이)')" class="word-card bg-orange-600/90 hover:bg-orange-500 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-lg sm:text-xl xl:text-2xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Worried</div>
-              <div class="text-xs sm:text-sm font-korean text-orange-100 font-bold">걱정되는</div>
+            <button onclick="selectFeeling('worried', 'Anxiety (불안이)')" class="word-card bg-white hover:bg-orange-100 border-2 border-orange-200 text-orange-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-base sm:text-lg xl:text-xl font-black font-english leading-tight">Worried</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">걱정되는</div>
             </button>
-            <button onclick="selectFeeling('uneasy', 'Anxiety (불안이)')" class="word-card bg-orange-600/90 hover:bg-orange-500 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-xl sm:text-2xl xl:text-3xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Uneasy</div>
-              <div class="text-xs sm:text-sm font-korean text-orange-100 font-bold">마음불편한</div>
+            <button onclick="selectFeeling('uneasy', 'Anxiety (불안이)')" class="word-card bg-white hover:bg-orange-100 border-2 border-orange-200 text-orange-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-lg sm:text-xl xl:text-2xl font-black font-english leading-tight">Uneasy</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">마음불편한</div>
             </button>
           </div>
 
           <!-- 7. ENNUI (따분이) -->
-          <div class="bg-indigo-950/40 border-2 border-indigo-400/80 rounded-2xl p-2 flex flex-col gap-2 shadow-lg">
-            <!-- Ennui Character Card Header -->
+          <div class="bg-violet-50 border-2 border-violet-300 rounded-2xl p-2 flex flex-col gap-2 shadow-sm">
             <div class="bg-gradient-to-b from-indigo-500 via-indigo-600 to-indigo-700 text-white rounded-xl p-2 text-center shadow-md border border-indigo-300 flex flex-col items-center justify-center relative overflow-hidden">
-              <!-- Ennui SVG Illustration -->
               <svg class="w-12 h-12 sm:w-14 sm:h-14 drop-shadow-md" viewBox="0 0 100 100" fill="none">
-                <!-- Dark Purple Long Droopy Hair -->
                 <path d="M 20 75 C 18 30 35 15 50 15 C 65 15 82 30 80 75 C 72 40 28 40 20 75 Z" fill="#312e81"/>
-                <!-- Slumped Dark Violet Face -->
                 <ellipse cx="50" cy="58" rx="20" ry="24" fill="#818cf8"/>
-                <!-- Half-Closed Bored Eyelids -->
                 <ellipse cx="40" cy="52" rx="7" ry="5" fill="#312e81"/>
                 <ellipse cx="60" cy="52" rx="7" ry="5" fill="#312e81"/>
                 <line x1="33" y1="52" x2="47" y2="52" stroke="#ffffff" stroke-width="2"/>
                 <line x1="53" y1="52" x2="67" y2="52" stroke="#ffffff" stroke-width="2"/>
-                <!-- Flat Expressionless Mouth -->
                 <line x1="42" y1="68" x2="58" y2="68" stroke="#1e1b4b" stroke-width="3" stroke-linecap="round"/>
-                <!-- Smartphone Icon -->
                 <rect x="62" y="65" width="12" height="18" rx="2" fill="#0f172a" stroke="#cbd5e1" stroke-width="1.5"/>
               </svg>
               <span class="text-xl sm:text-2xl font-black font-korean tracking-wide text-white drop-shadow mt-1">따분이</span>
               <span class="text-xs font-extrabold font-english text-indigo-200 uppercase tracking-widest">Ennui</span>
             </div>
-            <button onclick="selectFeeling('bored', 'Ennui (따분이)')" class="word-card bg-indigo-600/90 hover:bg-indigo-500 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Bored</div>
-              <div class="text-xs sm:text-sm font-korean text-indigo-100 font-bold">지루한</div>
+            <button onclick="selectFeeling('bored', 'Ennui (따분이)')" class="word-card bg-white hover:bg-violet-100 border-2 border-violet-200 text-violet-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-xl sm:text-2xl xl:text-3xl font-black font-english leading-tight">Bored</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">지루한</div>
             </button>
-            <button onclick="selectFeeling('tired', 'Ennui (따분이)')" class="word-card bg-indigo-600/90 hover:bg-indigo-500 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Tired</div>
-              <div class="text-xs sm:text-sm font-korean text-indigo-100 font-bold">피곤한</div>
+            <button onclick="selectFeeling('tired', 'Ennui (따분이)')" class="word-card bg-white hover:bg-violet-100 border-2 border-violet-200 text-violet-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-xl sm:text-2xl xl:text-3xl font-black font-english leading-tight">Tired</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">피곤한</div>
             </button>
-            <button onclick="selectFeeling('lazy', 'Ennui (따분이)')" class="word-card bg-indigo-600/90 hover:bg-indigo-500 py-1.5 px-1 rounded-xl text-center overflow-hidden flex flex-col items-center justify-center">
-              <div class="text-2xl sm:text-3xl xl:text-4xl font-black font-english text-white tracking-tight leading-tight w-full truncate drop-shadow">Lazy</div>
-              <div class="text-xs sm:text-sm font-korean text-indigo-100 font-bold">나른한</div>
+            <button onclick="selectFeeling('lazy', 'Ennui (따분이)')" class="word-card bg-white hover:bg-violet-100 border-2 border-violet-200 text-violet-700 py-1.5 px-1 rounded-xl text-center flex flex-col items-center justify-center">
+              <span class="fit-text text-xl sm:text-2xl xl:text-3xl font-black font-english leading-tight">Lazy</span>
+              <div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">나른한</div>
             </button>
           </div>
 
@@ -720,39 +625,81 @@
       </div>
 
       <!-- BOTTOM: Answer Template -->
-      <div class="bg-gradient-to-r from-emerald-900 via-emerald-950 to-slate-900 border-4 border-emerald-400 rounded-3xl p-3 sm:p-5 text-center shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-3 animate-glow">
+      <div style="--glow-color: rgba(16,185,129,0.45)" class="bg-emerald-50 border-4 border-emerald-300 rounded-3xl p-3 sm:p-5 text-center shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3 animate-glow">
         <div class="text-left flex flex-col gap-1">
           <div>
-            <span id="charTag" class="text-xs bg-slate-700 text-slate-300 font-bold px-2.5 py-0.5 rounded-full">감정을 선택하세요</span>
+            <span id="charTag" class="text-xs bg-slate-100 text-slate-500 font-bold px-2.5 py-0.5 rounded-full">감정을 선택하세요</span>
           </div>
-          <div id="feelingAnswerText" class="text-2xl sm:text-3xl md:text-4xl font-black text-white font-english tracking-wider flex items-baseline gap-2">
+          <div id="feelingAnswerText" class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-800 font-english tracking-wider flex items-baseline gap-2">
             <span>I feel</span>
-            <span id="selectedFeelingText" class="inline-block min-w-[160px] sm:min-w-[220px] border-b-4 border-amber-300 text-amber-300 text-center px-2 pb-0.5"></span>.
+            <span id="selectedFeelingText" class="inline-block min-w-[160px] sm:min-w-[220px] border-b-4 border-emerald-400 text-emerald-600 text-center px-2 pb-0.5"></span>.
           </div>
         </div>
 
-        <button onclick="speakCurrentAnswer('feeling')" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xl sm:text-2xl font-english px-6 py-3 rounded-2xl shadow-xl transition active:scale-95 flex items-center gap-2 shrink-0">
+        <button onclick="speakCurrentAnswer('feeling')" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-extrabold text-xl sm:text-2xl font-english px-6 py-3 rounded-2xl shadow-md transition active:scale-95 flex items-center gap-2 shrink-0">
           <span>🗣️</span>
           <span>Read Aloud!</span>
         </button>
       </div>
     </section>
 
+    <!-- ========================================== -->
+    <!-- SLIDE 4: WHAT DID YOU DO? (DAILY LIFE PRACTICE) -->
+    <!-- ========================================== -->
+    <section id="slide-4" class="slide-content hidden flex-col justify-between gap-4 min-h-[80vh]">
+
+      <!-- TOP: Question Header -->
+      <div class="bg-violet-50 border-4 border-violet-300 rounded-3xl p-3 sm:p-4 text-center shadow-sm relative">
+        <div class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-violet-600 font-english tracking-wide flex items-center justify-center gap-3">
+          <span>What did you do today?</span>
+          <button onclick="speakText(&quot;What did you do today?&quot;)" class="bg-amber-400 hover:bg-amber-300 text-slate-900 p-2.5 rounded-xl text-2xl transition active:scale-90 shadow-md" title="질문 발음 듣기">
+            🔊
+          </button>
+        </div>
+        <div class="text-base sm:text-lg font-korean text-slate-400 mt-1">카드를 여러 개 눌러서 오늘 하루를 영어 문장으로 만들어 보세요</div>
+      </div>
+
+      <!-- MIDDLE: Daily Activity Categories (rendered via JS) -->
+      <div class="bg-slate-50 border-2 border-slate-100 rounded-3xl p-3 sm:p-5 shadow-sm flex flex-col justify-center gap-4 flex-1">
+        <div id="dailyActivityGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 flex-1"></div>
+      </div>
+
+      <!-- BOTTOM: Answer Template -->
+      <div style="--glow-color: rgba(139,92,246,0.45)" class="bg-violet-50 border-4 border-violet-300 rounded-3xl p-3 sm:p-5 text-center shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3 animate-glow">
+        <div class="text-left">
+          <div id="dailyAnswerText" class="fit-text-wrap text-xl sm:text-2xl md:text-3xl font-black text-slate-800 font-english tracking-wide text-left">
+            What did you do today?
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 shrink-0">
+          <button onclick="clearDailyActions()" class="bg-slate-100 hover:bg-slate-200 text-slate-500 font-extrabold text-lg sm:text-xl font-english px-4 py-3 rounded-2xl shadow-sm transition active:scale-95 flex items-center gap-2">
+            <span>🔄</span>
+            <span>Clear</span>
+          </button>
+          <button onclick="speakCurrentAnswer('daily')" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-extrabold text-xl sm:text-2xl font-english px-6 py-3 rounded-2xl shadow-md transition active:scale-95 flex items-center gap-2">
+            <span>🗣️</span>
+            <span>Read Aloud!</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- Navigation Footer -->
-  <footer class="bg-slate-900/90 border-t-2 border-slate-800 py-3 px-6 flex justify-between items-center z-20">
-    <button onclick="prevSlide()" class="bg-slate-800 hover:bg-slate-700 border-2 border-slate-600 text-amber-300 font-extrabold text-xl px-6 py-2.5 rounded-2xl transition flex items-center gap-2">
+  <footer class="bg-white border-t-2 border-slate-100 py-3 px-6 flex justify-between items-center z-20">
+    <button onclick="prevSlide()" class="bg-slate-100 hover:bg-slate-200 border-2 border-slate-200 text-indigo-600 font-extrabold text-xl px-6 py-2.5 rounded-2xl transition flex items-center gap-2">
       <span>⬅️</span>
       <span class="font-english">Previous Slide</span>
     </button>
 
-    <div class="flex items-center gap-3 font-english text-xl font-bold text-slate-300">
+    <div class="flex items-center gap-3 font-english text-xl font-bold text-slate-500">
       <span>Slide</span>
-      <span id="slideIndicator" class="text-amber-300 font-extrabold text-2xl bg-slate-800 px-4 py-1 rounded-xl border border-slate-700">1 / 3</span>
+      <span id="slideIndicator" class="text-indigo-600 font-extrabold text-2xl bg-slate-50 px-4 py-1 rounded-xl border border-slate-200">1 / 4</span>
     </div>
 
-    <button onclick="nextSlide()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xl px-6 py-2.5 rounded-2xl transition flex items-center gap-2 shadow-lg">
+    <button onclick="nextSlide()" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-extrabold text-xl px-6 py-2.5 rounded-2xl transition flex items-center gap-2 shadow-md">
       <span class="font-english">Next Slide</span>
       <span>➡️</span>
     </button>
@@ -762,13 +709,14 @@
   <script>
     // State
     let currentSlide = 1;
-    const totalSlides = 3;
+    const totalSlides = 4;
 
     let currentDay = '';
     let currentMonth = '';
     let currentDateNum = '';
     let currentWeather = '';
     let currentFeeling = '';
+    let selectedDailyVerbs = []; // click order, for Slide 4 sentence chaining
     let ttsEnabled = true;
 
     // Web Speech API Voice Engine
@@ -800,6 +748,48 @@
       if (btnText) btnText.innerText = ttsEnabled ? '발음 ON' : '발음 OFF';
     }
 
+    // ---------- Auto-fit text so word-card labels are never cut off ----------
+    function fitText(el, wrap) {
+      if (!el) return;
+      const container = el.parentElement;
+      if (!container) return;
+
+      el.style.fontSize = '';
+      el.style.whiteSpace = wrap ? 'normal' : 'nowrap';
+
+      const cs = getComputedStyle(container);
+      const availW = container.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+      const availH = container.clientHeight - parseFloat(cs.paddingTop || 0) - parseFloat(cs.paddingBottom || 0);
+      if (availW <= 0) return;
+
+      let size = parseFloat(getComputedStyle(el).fontSize);
+      const fits = () => {
+        const okW = el.scrollWidth <= availW + 1;
+        const okH = wrap ? el.scrollHeight <= availH + 1 : true;
+        return okW && okH;
+      };
+
+      let guard = 0;
+      while (!fits() && size > 10 && guard < 60) {
+        size -= 1;
+        el.style.fontSize = size + 'px';
+        guard++;
+      }
+    }
+
+    function fitSlideText(slideNum) {
+      const slide = document.getElementById(`slide-${slideNum}`);
+      if (!slide) return;
+      slide.querySelectorAll('.fit-text').forEach(el => fitText(el, false));
+      slide.querySelectorAll('.fit-text-wrap').forEach(el => fitText(el, true));
+    }
+
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => fitSlideText(currentSlide), 150);
+    });
+
     // Ordinal Suffix helper
     function getOrdinalSuffix(i) {
       const j = i % 10, k = i % 100;
@@ -807,6 +797,21 @@
       if (j === 2 && k !== 12) return i + "nd";
       if (j === 3 && k !== 13) return i + "rd";
       return i + "th";
+    }
+
+    // Render Month Buttons (single pastel tone)
+    const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    function renderMonthButtons() {
+      const container = document.getElementById('monthGrid');
+      if (!container) return;
+      container.innerHTML = '';
+      MONTHS.forEach((m, i) => {
+        const btn = document.createElement('button');
+        btn.onclick = () => selectMonth(m);
+        btn.className = 'month-btn word-card bg-violet-50 border-2 border-violet-200 hover:border-violet-400 text-violet-600 rounded-xl py-1.5 px-1 text-center cursor-pointer shadow-sm flex flex-col items-center';
+        btn.innerHTML = `<span class="fit-text text-2xl sm:text-3xl xl:text-4xl font-black font-english">${m}</span><div class="text-xs sm:text-sm font-korean text-slate-500 font-bold">${i + 1}월</div>`;
+        container.appendChild(btn);
+      });
     }
 
     // Render 1st ~ 31st Buttons
@@ -819,10 +824,140 @@
         const ord = getOrdinalSuffix(d);
         const btn = document.createElement('button');
         btn.onclick = () => selectDateNum(ord);
-        btn.className = 'word-card bg-slate-800 border border-slate-700 hover:border-sky-400 text-sky-200 rounded-lg py-1 px-1 text-center shadow font-english font-black text-2xl sm:text-3xl';
-        btn.innerText = ord;
+        btn.className = 'word-card bg-white border-2 border-sky-200 hover:border-sky-400 text-sky-600 rounded-lg py-1 px-1 text-center shadow-sm flex items-center justify-center';
+        btn.innerHTML = `<span class="fit-text font-english font-black text-2xl sm:text-3xl">${ord}</span>`;
         container.appendChild(btn);
       }
+    }
+
+    // ---------- Slide 4: Daily Activities Data & Rendering ----------
+    const DAILY_ACTIVITIES = [
+      {
+        title: '🌅 아침에 (Morning)',
+        color: 'orange',
+        items: [
+          { verb: 'woke up', ko: '일어났어요' },
+          { verb: 'brushed my teeth', ko: '양치를 했어요' },
+          { verb: 'ate breakfast', ko: '아침을 먹었어요' },
+          { verb: 'got dressed', ko: '옷을 입었어요' },
+        ],
+      },
+      {
+        title: '🏫 학교에서 (At School)',
+        color: 'sky',
+        items: [
+          { verb: 'went to school', ko: '학교에 갔어요' },
+          { verb: 'studied math', ko: '수학 공부를 했어요' },
+          { verb: 'had lunch', ko: '점심을 먹었어요' },
+          { verb: 'played with my friends', ko: '친구들과 놀았어요' },
+        ],
+      },
+      {
+        title: '🎒 방과 후에 (After School)',
+        color: 'emerald',
+        items: [
+          { verb: 'did my homework', ko: '숙제를 했어요' },
+          { verb: 'rode my bike', ko: '자전거를 탔어요' },
+          { verb: 'played computer games', ko: '컴퓨터 게임을 했어요' },
+          { verb: 'went to the academy', ko: '학원에 갔어요' },
+        ],
+      },
+      {
+        title: '🌙 저녁에 (Evening)',
+        color: 'violet',
+        items: [
+          { verb: 'took a shower', ko: '샤워를 했어요' },
+          { verb: 'ate dinner', ko: '저녁을 먹었어요' },
+          { verb: 'read a book', ko: '책을 읽었어요' },
+          { verb: 'went to bed', ko: '잠을 잤어요' },
+        ],
+      },
+    ];
+
+    function dailyBtnClass(color, active) {
+      return active
+        ? `word-card bg-${color}-500 border-2 border-${color}-600 text-white py-2.5 px-2 rounded-xl text-center shadow-md flex flex-col items-center justify-center`
+        : `word-card bg-white border-2 border-${color}-200 hover:border-${color}-400 text-${color}-700 py-2.5 px-2 rounded-xl text-center shadow-sm flex flex-col items-center justify-center`;
+    }
+
+    function renderDailyActivities() {
+      const container = document.getElementById('dailyActivityGrid');
+      if (!container) return;
+      container.innerHTML = '';
+
+      DAILY_ACTIVITIES.forEach(category => {
+        const card = document.createElement('div');
+        card.className = `bg-${category.color}-50 border-2 border-${category.color}-300 rounded-2xl p-3 flex flex-col justify-between shadow-sm`;
+
+        const header = document.createElement('div');
+        header.className = `text-xl sm:text-2xl font-black font-korean text-${category.color}-600 mb-2 pb-2 border-b-2 border-${category.color}-200 text-center`;
+        header.innerText = category.title;
+        card.appendChild(header);
+
+        const list = document.createElement('div');
+        list.className = 'flex flex-col gap-2.5 flex-1 justify-center';
+
+        category.items.forEach(item => {
+          const btn = document.createElement('button');
+          btn.dataset.verb = item.verb;
+          btn.dataset.color = category.color;
+          btn.className = dailyBtnClass(category.color, false);
+          btn.innerHTML = `<span class="fit-text-wrap text-base sm:text-lg xl:text-xl font-black font-english leading-tight">I ${item.verb}</span><div class="text-xs sm:text-sm font-korean font-bold ${''}">${item.ko}</div>`;
+          btn.onclick = () => toggleDailyAction(btn, item.verb);
+          list.appendChild(btn);
+        });
+
+        card.appendChild(list);
+        container.appendChild(card);
+      });
+    }
+
+    function toggleDailyAction(btn, verb) {
+      const idx = selectedDailyVerbs.indexOf(verb);
+      const isNowActive = idx === -1;
+
+      if (isNowActive) {
+        selectedDailyVerbs.push(verb);
+      } else {
+        selectedDailyVerbs.splice(idx, 1);
+      }
+
+      btn.className = dailyBtnClass(btn.dataset.color, isNowActive);
+
+      const korean = btn.querySelector('div');
+      if (korean) {
+        korean.className = `text-xs sm:text-sm font-korean font-bold ${isNowActive ? 'text-white/90' : 'text-slate-500'}`;
+      }
+
+      updateDailyAnswer();
+
+      if (isNowActive) {
+        speakText(`I ${verb}.`);
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 30, spread: 45, origin: { y: 0.85 } });
+        }
+      }
+    }
+
+    function updateDailyAnswer() {
+      const el = document.getElementById('dailyAnswerText');
+      if (!el) return;
+      if (selectedDailyVerbs.length === 0) {
+        el.innerText = 'What did you do today?';
+      } else {
+        el.innerText = `I ${selectedDailyVerbs.join(' and ')}.`;
+      }
+      fitText(el, true);
+    }
+
+    function clearDailyActions() {
+      selectedDailyVerbs = [];
+      document.querySelectorAll('#dailyActivityGrid button[data-verb]').forEach(btn => {
+        btn.className = dailyBtnClass(btn.dataset.color, false);
+        const korean = btn.querySelector('div');
+        if (korean) korean.className = 'text-xs sm:text-sm font-korean font-bold text-slate-500';
+      });
+      updateDailyAnswer();
     }
 
     // Slide Switching Logic
@@ -841,18 +976,21 @@
         target.classList.add('flex');
       }
 
+      const activeTabClasses = ['bg-indigo-500', 'text-white', 'shadow'];
       document.querySelectorAll('.nav-tab').forEach(btn => {
-        btn.classList.remove('bg-indigo-600', 'text-white');
-        btn.classList.add('bg-slate-700', 'text-slate-300');
+        btn.classList.remove(...activeTabClasses);
+        btn.classList.add('bg-white', 'text-slate-500');
       });
 
       const activeBtn = document.getElementById(`tab-slide-${slideNum}`);
       if (activeBtn) {
-        activeBtn.classList.remove('bg-slate-700', 'text-slate-300');
-        activeBtn.classList.add('bg-indigo-600', 'text-white');
+        activeBtn.classList.remove('bg-white', 'text-slate-500');
+        activeBtn.classList.add(...activeTabClasses);
       }
 
       document.getElementById('slideIndicator').innerText = `${slideNum} / ${totalSlides}`;
+
+      requestAnimationFrame(() => fitSlideText(slideNum));
     }
 
     function nextSlide() {
@@ -893,7 +1031,7 @@
       speakText(ordString);
     }
 
-    function selectWeather(code, displayName, koreanMeaning) {
+    function selectWeather(displayName, koreanMeaning) {
       currentWeather = displayName.toLowerCase();
       document.getElementById('selectedWeatherText').innerText = displayName;
       speakText(`It's ${displayName}.`);
@@ -906,7 +1044,7 @@
       const charTag = document.getElementById('charTag');
       if (charTag) {
         charTag.innerText = `${characterName} 선택됨`;
-        charTag.className = 'text-xs bg-amber-400 text-slate-950 font-bold px-2.5 py-0.5 rounded-full';
+        charTag.className = 'text-xs bg-amber-400 text-slate-900 font-bold px-2.5 py-0.5 rounded-full';
       }
 
       speakText(`I feel ${word}.`);
@@ -925,8 +1063,6 @@
       let speechSentence = "";
 
       if (type === 'date') {
-        const parts = [];
-        if (currentDay) parts.push(currentDay);
         let datePart = "";
         if (currentMonth) datePart += currentMonth;
         if (currentDateNum) datePart += " " + currentDateNum;
@@ -952,6 +1088,12 @@
         } else {
           speechSentence = "How are you today?";
         }
+      } else if (type === 'daily') {
+        if (selectedDailyVerbs.length > 0) {
+          speechSentence = `I ${selectedDailyVerbs.join(' and ')}.`;
+        } else {
+          speechSentence = "What did you do today?";
+        }
       }
 
       speakText(speechSentence);
@@ -970,7 +1112,10 @@
     }
 
     window.onload = function() {
+      renderMonthButtons();
       renderDateNumButtons();
+      renderDailyActivities();
+      fitSlideText(1);
     };
   </script>
 </body>
